@@ -6,7 +6,7 @@
 #include <cstdio>
 #include "Ball.h"
 
-Ball::Ball(Position center, int radius) : position(center), radius(radius) {}
+Ball::Ball(Position center, int radius) : position(center), radius(radius), movement(5,0) {}
 
 Position Ball::getPosition() { return position; }
 int Ball::getRadius() { return radius; }
@@ -37,6 +37,10 @@ bool Ball::contains(Position point)
 
 void Ball::move(Movement &movement) {
     position += movement;
+}
+
+Movement& Ball::getMovement() {
+    return movement;
 }
 
 

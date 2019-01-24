@@ -6,13 +6,15 @@
 
 Room::Room(Ball ball, Pad padPlayer, Pad padOpponent, int width, int height) :
     ball(ball), padPlayer(padPlayer), padOpponent(padOpponent),
-    thickness(10), width(width), height(height), ballMovement(5,1) {}
+    thickness(10), width(width), height(height) {}
 
 void Room::display(PlayerOutput &playerOutput)
 {
+    if (collidePlayer(padPlayer, ball)) ball.getMovement().revert();
+    else if (collide(ball)) ball.getMovement().revert();
+    ball.move(ball.getMovement());
+
     playerOutput.drawPurpleBox(Position(0,0), playerOutput.getWidth(), playerOutput.getHeight(), thickness);
-    if (collidePlayer(padPlayer, ball, ballMovement)) ballMovement.revert();
-    ball.move(ballMovement);
     ball.display(playerOutput);
     padPlayer.display(playerOutput);
     padOpponent.display(playerOutput);
@@ -34,40 +36,31 @@ void Room::handle(Action &action) {
     }
 }
 
-bool Room::collide(Ball ball, Movement movement) {
-    int ballNextY = (ball.getPosition() + movement).getY();
-    int ballNextX = (ball.getPosition() + movement).getX();
-    bool ball_is_after_room_min_x_limit = ballNextX - ball.getRadius() > thickness;
-    bool ball_is_before_room_max_x_limit = ballNextX + ball.getRadius() < width - thickness;
-    bool ball_is_after_room_min_y_limit = ballNextY - ball.getRadius() > thickness;
-    bool ball_is_before_room_max_y_limit = ballNextY + ball.getRadius() < height - thickness;
+bool Room::collide(Ball ball)
+{
+    int ballNextY = (ball.getPosition() + ball.getMovement()).getY();
+    bool ballIsBeforeRoomMinY = ballNextY - ball.getRadius() < thickness;
+    bool ballIsAfterRoomMaxY = ballNextY + ball.getRadius() > height - thickness;
 
-    return not (
-            ball_is_after_room_min_x_limit and
-            ball_is_after_room_min_y_limit and
-            ball_is_before_room_max_x_limit and
-            ball_is_before_room_max_y_limit);
+    return (ballIsBeforeRoomMinY or ballIsAfterRoomMaxY);
 }
 
-bool Room::collide(Pad pad, Movement movement) {
-    bool pad_is_after_room_min_y = (pad.getPosition() + movement).getY() > thickness;
-    bool pad_is_before_room_max_y = (pad.getPosition() + movement).getY() + Pad::height < height - thickness;
+bool Room::collide(Pad pad, Movement padMovement)
+{
+    int padNextY = (pad.getPosition() + padMovement).getY();
+    bool padIsBeforeRoomMinY = padNextY < thickness;
+    bool padIsAfterRoomMaxY = padNextY + Pad::height > height - thickness;
 
-    return not ( pad_is_after_room_min_y and pad_is_before_room_max_y );
+    return ( padIsBeforeRoomMinY or padIsAfterRoomMaxY );
 }
 
-bool Room::collidePlayer(Pad pad, Ball ball, Movement movement) {
-    int ballNextY = (ball.getPosition() + movement).getY();
-    int ballNextX = (ball.getPosition() + movement).getX();
+bool Room::collidePlayer(Pad pad, Ball ball)
+{
+    int ballNextY = (ball.getPosition() + ball.getMovement()).getY();
+    int ballNextX = (ball.getPosition() + ball.getMovement()).getX();
+    bool ballIsAfterPadMinY = ballNextY + ball.getRadius() > pad.getPosition().getY();
+    bool ballIsAfterPadMaxX = ballNextX + ball.getRadius() > pad.getPosition().getX();
+    bool ballIsBeforePadMaxY = ballNextY - ball.getRadius() < pad.getPosition().getY() + Pad::height;
 
-    bool ball_is_after_pad_min_y = ballNextY + ball.getRadius() > pad.getPosition().getY();
-    bool ball_is_before_pad_max_y = ballNextY - ball.getRadius() < pad.getPosition().getY() + Pad::height;
-    bool ball_is_after_pad_max_x = ballNextX + ball.getRadius() > pad.getPosition().getX();
-
-    return (ball_is_after_pad_min_y and
-            ball_is_before_pad_max_y and
-            ball_is_after_pad_max_x);
+    return (ballIsAfterPadMinY and ballIsBeforePadMaxY and ballIsAfterPadMaxX);
 }
-
-
-

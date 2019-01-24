@@ -17,11 +17,13 @@ public:
     void display(PlayerOutput &playerOutput);
     void move(Movement &movement);
     Position getPosition();
+    Movement& getMovement();
     int getRadius();
 
 private:
     int radius;
     const int angle = 45;
+    Movement movement;
     Position position;
     bool contains(Position point);
 
