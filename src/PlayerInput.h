@@ -9,8 +9,6 @@
 enum Action {
     PRESS_UP_ARROW,
     PRESS_DOWN_ARROW,
-    PRESS_LEFT_ARROW,
-    PRESS_RIGHT_ARROW,
     QUIT,
     NONE
 };

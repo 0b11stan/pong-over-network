@@ -14,10 +14,15 @@ class Ball {
 
 public:
     Ball(Position center, int radius);
+
     void display(PlayerOutput &playerOutput);
+
     void move(Movement &movement);
+
     Position getPosition();
-    Movement& getMovement();
+
+    Movement &getMovement();
+
     int getRadius();
 
 private:
@@ -25,6 +30,7 @@ private:
     const int angle = 45;
     Movement movement;
     Position position;
+
     bool contains(Position point);
 
 };

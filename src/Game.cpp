@@ -7,11 +7,10 @@
 #include "Game.h"
 
 Game::Game(PlayerInput &playerInput, PlayerOutput &playerOutput, Room room)
-: playerInput(playerInput), playerOutput(playerOutput), room(room) {}
+        : playerInput(playerInput), playerOutput(playerOutput), room(room) {}
 
 
-void Game::run()
-{
+void Game::run() {
     Action action;
 
     do {
@@ -20,14 +19,14 @@ void Game::run()
         playerOutput.render();
         playerInput.read(action);
         usleep(5000);
-    }
-    while( handle(action) );
+    } while (handle(action));
 
     playerOutput.close();
 
 }
 
 void Game::display() {
+    room.process();
     room.display(playerOutput);
 }
 

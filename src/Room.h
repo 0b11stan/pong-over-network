@@ -15,10 +15,17 @@ class Room {
 
 public:
     Room(Ball ball, Pad padPlayer, Pad padOpponent, int width, int height);
+
     void display(PlayerOutput &playerOutput);
+
+    void process();
+
     void handle(Action &action);
+
     bool collide(Ball ball);
+
     bool collide(Pad pad, Movement padMovement);
+
     bool collidePlayer(Pad pad, Ball ball);
 
 private:

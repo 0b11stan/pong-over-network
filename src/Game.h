@@ -15,13 +15,16 @@ class Game {
 
 public:
     Game(PlayerInput &playerInput, PlayerOutput &playerOutput, Room room);
+
     void run();
 
 private:
     PlayerInput &playerInput;
     PlayerOutput &playerOutput;
     Room room;
+
     void display();
+
     bool handle(Action &action);
 
 };

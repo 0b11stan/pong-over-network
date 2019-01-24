@@ -7,20 +7,19 @@
 Position::Position(int x, int y) : abscissa(x), ordinate(y) {}
 
 int Position::getX() { return abscissa; }
+
 int Position::getY() { return ordinate; }
 
-Position& Position::operator+=(Movement &movement) {
+Position &Position::operator+=(Movement &movement) {
     *this = *this + movement;
     return *this;
 }
 
-Position Position::operator+(Movement &movement)
-{
-    return { abscissa + movement.getX(), ordinate + movement.getY() };
+Position Position::operator+(Movement &movement) {
+    return {abscissa + movement.getX(), ordinate + movement.getY()};
 }
 
-Position Position::operator+(const int margin) const
-{
-    return { abscissa + margin, ordinate + margin };
+Position Position::operator+(const int margin) const {
+    return {abscissa + margin, ordinate + margin};
 }
 

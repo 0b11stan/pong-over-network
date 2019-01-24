@@ -12,10 +12,15 @@ class Position {
 
 public:
     Position(int x, int y);
+
     int getX();
+
     int getY();
-    Position& operator+=(Movement &movement);
+
+    Position &operator+=(Movement &movement);
+
     Position operator+(Movement &movement);
+
     Position operator+(int margin) const;
 
 private:

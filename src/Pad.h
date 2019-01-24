@@ -13,10 +13,14 @@ class Pad {
 
 public:
     Pad(Position position);
+
     const static int height = 200;
     const static int width = 40;
+
     void display(PlayerOutput &playerOutput);
+
     void move(Movement movement);
+
     Position getPosition();
 
 private:

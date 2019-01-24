@@ -11,8 +11,7 @@
 #include "Pad.h"
 
 
-int main( int argc, char* args[] )
-{
+int main(int argc, char *args[]) {
     SDL2Input playerInput;
     SDL2Output playerOutput;
     Ball ball = Ball(Position(200, 200), 50);

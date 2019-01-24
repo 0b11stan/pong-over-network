@@ -4,15 +4,13 @@
 
 #include "Pad.h"
 
-Pad::Pad(Position position): position(position) {}
+Pad::Pad(Position position) : position(position) {}
 
-void Pad::display(PlayerOutput &playerOutput)
-{
+void Pad::display(PlayerOutput &playerOutput) {
     playerOutput.drawRect(position, width, height);
 }
 
-void Pad::move(Movement movement)
-{
+void Pad::move(Movement movement) {
     position += movement;
 }
 
