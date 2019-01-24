@@ -1,2 +1,3 @@
-# pong-over-network
-Just a simple pong implementation of the pong game over a network
+# Pong Over Network
+
+PON (Pong Over Network) is a simple client/server pong implementation in c++.
