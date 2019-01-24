@@ -73,9 +73,9 @@ void SDL2Output::render()
 }
 
 
-void SDL2Output::drawRect(Position position, int width, int height)
+void SDL2Output::drawRect(Position center, int width, int height)
 {
-    SDL_Rect rect = { position.getX(), position.getY(), width, height };
+    SDL_Rect rect = { center.getX(), center.getY(), width, height };
     SDL_RenderFillRect(renderer, &rect);
 }
 

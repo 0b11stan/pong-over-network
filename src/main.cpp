@@ -8,14 +8,25 @@
 #include "Position.h"
 #include "Ball.h"
 #include "Game.h"
+#include "Pad.h"
 
 
 int main( int argc, char* args[] )
 {
     SDL2Input playerInput;
     SDL2Output playerOutput;
-    Ball ball = Ball(Position(200, 200), 100);
-    Room room = Room(ball, playerOutput.getWidth(), playerOutput.getHeight());
+    Ball ball = Ball(Position(200, 200), 50);
+
+    Position positionPlayer = Position(
+            playerOutput.getWidth() - 50 - Pad::width,
+            playerOutput.getHeight() / 2 - Pad::height / 2);
+    Position positionOpponent = Position(
+            50, playerOutput.getHeight() / 2 - Pad::height / 2);
+
+    Pad padPlayer = Pad(positionPlayer);
+    Pad padOpponent = Pad(positionOpponent);
+
+    Room room = Room(ball, padPlayer, padOpponent, playerOutput.getWidth(), playerOutput.getHeight());
 
     Game game = Game(playerInput, playerOutput, room);
     game.run();

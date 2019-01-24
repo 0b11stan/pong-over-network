@@ -35,7 +35,7 @@ bool Ball::contains(Position point)
 }
 
 
-void Ball::move(Movement movement) {
+void Ball::move(Movement &movement) {
     position += movement;
 }
 

@@ -13,7 +13,7 @@ set(SOURCE_FILES
         src/Ball.h src/Ball.cpp
         src/Game.h src/Game.cpp
         src/Movement.cpp src/Movement.h
-        src/Room.cpp src/Room.h)
+        src/Room.cpp src/Room.h src/Pad.cpp src/Pad.h)
 
 find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIR})

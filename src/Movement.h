@@ -11,6 +11,7 @@ class Movement {
 public:
     Movement();
     Movement(signed int vertical, signed int horizontal);
+    void revert();
     signed int getX();
     signed int getY();
 

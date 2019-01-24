@@ -15,12 +15,13 @@ class Ball {
 public:
     Ball(Position center, int radius);
     void display(PlayerOutput &playerOutput);
-    void move(Movement movement);
+    void move(Movement &movement);
     Position getPosition();
     int getRadius();
 
 private:
     int radius;
+    const int angle = 45;
     Position position;
     bool contains(Position point);
 

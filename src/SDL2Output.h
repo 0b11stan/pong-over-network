@@ -18,7 +18,7 @@ public:
     void close() override;
     void clear() override;
     void drawRedPoint(Position position) override;
-    void drawRect(Position position, int width, int height) override;
+    void drawRect(Position center, int width, int height) override;
     void drawPurpleBox(Position position, int width, int height, int thickness) override;
     void render() override;
 

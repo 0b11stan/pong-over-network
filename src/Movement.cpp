@@ -10,4 +10,9 @@ Movement::Movement(int vertical, int horizontal) : vertical(vertical), horizonta
 int Movement::getX() { return vertical; }
 int Movement::getY() { return horizontal; }
 
+void Movement::revert() {
+    vertical = -vertical;
+    horizontal = -horizontal;
+}
+
 
