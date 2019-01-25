@@ -19,14 +19,13 @@ int main(int argc, char *args[]) {
     Position positionPlayer = Position(
             playerOutput.getWidth() - 50 - Pad::width,
             playerOutput.getHeight() / 2 - Pad::height / 2);
-    Position positionOpponent = Position(
-            50, playerOutput.getHeight() / 2 - Pad::height / 2);
+
+    Position positionOpponent = Position(50, playerOutput.getHeight() / 2 - Pad::height / 2);
 
     Pad padPlayer = Pad(positionPlayer);
     Pad padOpponent = Pad(positionOpponent);
 
     Room room = Room(ball, padPlayer, padOpponent, playerOutput.getWidth(), playerOutput.getHeight());
-
     Game game = Game(playerInput, playerOutput, room);
     game.run();
 

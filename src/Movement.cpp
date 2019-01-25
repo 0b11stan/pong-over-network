@@ -4,16 +4,15 @@
 
 #include "Movement.h"
 
-Movement::Movement() : vertical(0), horizontal(0) {}
+Movement::Movement() : horizontal(0), vertical(0) {}
 
-Movement::Movement(int vertical, int horizontal) : vertical(vertical), horizontal(horizontal) {}
+Movement::Movement(int vertical, int horizontal) : horizontal(vertical), vertical(horizontal) {}
 
-int Movement::getX() { return vertical; }
+int Movement::getX() { return horizontal; }
 
-int Movement::getY() { return horizontal; }
+int Movement::getY() { return vertical; }
 
 void Movement::revert() {
-    vertical = -vertical;
     horizontal = -horizontal;
 }
 

@@ -20,8 +20,8 @@ public:
     signed int getY();
 
 private:
-    signed int vertical;
     signed int horizontal;
+    signed int vertical;
 
 };
 
