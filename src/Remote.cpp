@@ -5,20 +5,34 @@
 #include <curl/curl.h>
 #include "Remote.h"
 
-Remote::Remote() {
-    CURL *curl = curl_easy_init();
-    if (curl) {
-        curl_easy_setopt(curl, CURLOPT_URL, "http://syllab.com/PTRE839/help?k=255058");
-        CURLcode result = curl_easy_perform(curl);
-        curl_easy_cleanup(curl);
 
+char *Remote::request(HttpMethod method, std::string path) {
+    char *output = nullptr;
+    if (curlHandler) {
+        char url[baseURI.length() + path.length() + baseKEY.length() + 3];
+        sprintf(url, "%s%s?k=%s", baseURI.c_str(), path.c_str(), baseKEY.c_str());
+
+        curl_easy_setopt(curlHandler, CURLOPT_URL, url);
+//        curl_easy_setopt(curlHandler, CURLOPT_WRITEDATA, output);
+//        curl_easy_setopt(curlHandler, CURLOPT_WRITEFUNCTION, callbackWriter);
+
+        CURLcode result = curl_easy_perform(curlHandler);
+        curl_easy_cleanup(curlHandler);
         if (result != CURLE_OK) {
-            printf("Error while performing request : %s\n", curl_easy_strerror(result));
+            printf("Error : Performing request failed : %s\n", curl_easy_strerror(result));
         }
+    } else {
+        printf("Error : Could not init curl.");
     }
-
+    return output;
 }
 
-int Remote::getPing() {
-    return 0;
+void Remote::requestPing() {
+    char* test = request(HttpMethod::GET, "/help");
+    printf("test : %s", test);
+}
+
+size_t Remote::callbackWriter(char *content, size_t size, size_t contentSize, void *output) {
+    output = content;
+    return contentSize;
 }

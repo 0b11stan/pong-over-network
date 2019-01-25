@@ -16,7 +16,8 @@ int main(int argc, char *args[]) {
     SDL2Input playerInput;
     SDL2Output playerOutput;
 
-    Remote r = Remote();
+    Remote remote = Remote();
+    remote.requestPing();
 
 
     Position positionPlayer = Position(
