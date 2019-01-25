@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.12)
-project(brockenbrick)
+project(pong-over-network)
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
@@ -20,5 +20,5 @@ set(SOURCE_FILES
 find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIR})
 
-add_executable(brockenbrick ${SOURCE_FILES})
-target_link_libraries(brockenbrick ${SDL2_LIBRARY} curl)
+add_executable(pon ${SOURCE_FILES})
+target_link_libraries(pon ${SDL2_LIBRARY} curl)
