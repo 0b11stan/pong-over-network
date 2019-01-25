@@ -9,12 +9,15 @@
 #include "Ball.h"
 #include "Game.h"
 #include "Pad.h"
+#include "Remote.h"
 
 
 int main(int argc, char *args[]) {
     SDL2Input playerInput;
     SDL2Output playerOutput;
-    Ball ball = Ball(Position(200, 200), 50);
+
+    Remote r = Remote();
+
 
     Position positionPlayer = Position(
             playerOutput.getWidth() - 50 - Pad::width,
@@ -24,6 +27,7 @@ int main(int argc, char *args[]) {
 
     Pad padPlayer = Pad(positionPlayer);
     Pad padOpponent = Pad(positionOpponent);
+    Ball ball = Ball(Position(200, 200), 50);
 
     Room room = Room(ball, padPlayer, padOpponent, playerOutput.getWidth(), playerOutput.getHeight());
     Game game = Game(playerInput, playerOutput, room);
