@@ -15,7 +15,7 @@ set(SOURCE_FILES
         src/Movement.cpp src/Movement.h
         src/Room.cpp src/Room.h
         src/Pad.cpp src/Pad.h
-        src/Remote.cpp src/Remote.h)
+        src/HTTP.cpp src/HTTP.h src/Server.cpp src/Server.h src/HTTPResponse.cpp src/HTTPResponse.h)
 
 find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIR})

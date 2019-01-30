@@ -9,30 +9,40 @@
 #include "Ball.h"
 #include "Game.h"
 #include "Pad.h"
-#include "Remote.h"
+#include "HTTP.h"
 
 
 int main(int argc, char *args[]) {
-    SDL2Input playerInput;
-    SDL2Output playerOutput;
+//    SDL2Input playerInput;
+//    SDL2Output playerOutput;
 
-    Remote remote = Remote();
-    remote.requestPing();
+    HTTP http = HTTP("http://syllab.com/PTRE839");
 
+    if (!http.init()) {
+        fprintf(stderr, "HTTP initialization failed\n");
+        exit(EXIT_FAILURE);
+    }
 
-    Position positionPlayer = Position(
-            playerOutput.getWidth() - 50 - Pad::width,
-            playerOutput.getHeight() / 2 - Pad::height / 2);
+    std::string response = http.get("/help").getBody();
 
-    Position positionOpponent = Position(50, playerOutput.getHeight() / 2 - Pad::height / 2);
+    printf("output : %s", response.c_str());
 
-    Pad padPlayer = Pad(positionPlayer);
-    Pad padOpponent = Pad(positionOpponent);
-    Ball ball = Ball(Position(200, 200), 50);
-
-    Room room = Room(ball, padPlayer, padOpponent, playerOutput.getWidth(), playerOutput.getHeight());
-    Game game = Game(playerInput, playerOutput, room);
-    game.run();
+//    remote.requestHelp();
+//
+//
+//    Position positionPlayer = Position(
+//            playerOutput.getWidth() - 50 - Pad::width,
+//            playerOutput.getHeight() / 2 - Pad::height / 2);
+//
+//    Position positionOpponent = Position(50, playerOutput.getHeight() / 2 - Pad::height / 2);
+//
+//    Pad padPlayer = Pad(positionPlayer);
+//    Pad padOpponent = Pad(positionOpponent);
+//    Ball ball = Ball(Position(200, 200), 50);
+//
+//    Room room = Room(ball, padPlayer, padOpponent, playerOutput.getWidth(), playerOutput.getHeight());
+//    Game game = Game(playerInput, playerOutput, room);
+//    game.run();
 
     return 0;
 
