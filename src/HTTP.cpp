@@ -5,7 +5,7 @@
 #include "HTTP.h"
 
 
-HTTP::HTTP(char *baseURI) : baseURI(baseURI) {}
+HTTP::HTTP(char *baseURI, char *baseKEY) : baseURI(baseURI), baseKEY(baseKEY) {}
 
 HTTP::~HTTP() { curl_easy_cleanup(curlHandler); }
 

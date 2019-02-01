@@ -17,11 +17,11 @@ int main(int argc, char *args[]) {
     SDL2Input playerInput;
     SDL2Output playerOutput;
 
-    HTTP http ("http://syllab.com/PTRE839");
-    Server server (http);
+    HTTP http("http://syllab.com/PTRE839", "255058");
+    Server server(http);
 
     printf("aide : %s", server.help().c_str());
-    printf("ping : %s", server.ping().c_str());
+//    printf("ping : %s", server.ping().c_str());
 
 //    remote.requestHelp();
 //

@@ -15,6 +15,7 @@ public:
     explicit Server(HTTP &connection);
 
     std::string help();
+
     int ping();
 
 private:

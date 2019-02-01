@@ -16,7 +16,8 @@ enum HttpMethod {
 class HTTP {
 
 public:
-    explicit HTTP(char *baseURI);
+    explicit HTTP(char *baseURI, char *baseKEY);
+
     ~HTTP();
 
     HTTPResponse get(std::string path);
@@ -35,11 +36,12 @@ private:
      */
     CURL *curlHandler;
     std::string baseURI;
-    std::string baseKEY = "255058";
+    std::string baseKEY;
     char errorBuffer[CURL_ERROR_SIZE];
     std::string buffer;
 
     std::string buildURL(std::string &path);
+
     void setUrl(std::string url);
 
     static size_t writer(char *inputContent, size_t sizeFactor, size_t contentSize, std::string *outputContent);
