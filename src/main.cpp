@@ -10,22 +10,18 @@
 #include "Game.h"
 #include "Pad.h"
 #include "HTTP.h"
+#include "Server.h"
 
 
 int main(int argc, char *args[]) {
-//    SDL2Input playerInput;
-//    SDL2Output playerOutput;
+    SDL2Input playerInput;
+    SDL2Output playerOutput;
 
-    HTTP http = HTTP("http://syllab.com/PTRE839");
+    HTTP http ("http://syllab.com/PTRE839");
+    Server server (http);
 
-    if (!http.init()) {
-        fprintf(stderr, "HTTP initialization failed\n");
-        exit(EXIT_FAILURE);
-    }
-
-    std::string response = http.get("/help").getBody();
-
-    printf("output : %s", response.c_str());
+    printf("aide : %s", server.help().c_str());
+    printf("ping : %s", server.ping().c_str());
 
 //    remote.requestHelp();
 //

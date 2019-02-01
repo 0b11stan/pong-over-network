@@ -12,8 +12,13 @@
 class Server {
 
 public:
-    Server(HTTP connection);
+    explicit Server(HTTP &connection);
+
     std::string help();
+    int ping();
+
+private:
+    HTTP &connection;
 
 };
 
