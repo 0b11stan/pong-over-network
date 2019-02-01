@@ -9,9 +9,8 @@ HTTP::HTTP(char *baseURI, char *baseKEY) : baseURI(baseURI), baseKEY(baseKEY) {}
 
 HTTP::~HTTP() { curl_easy_cleanup(curlHandler); }
 
-HTTPResponse HTTP::get(std::string path) {
-
-    std::string url = buildURL(path);
+HTTPResponse HTTP::get(std::string path, std::map<std::string, std::string> parameters) {
+    std::string url = buildURL(path, parameters);
     setUrl(url);
 
     CURLcode code = curl_easy_perform(curlHandler);
@@ -23,9 +22,11 @@ HTTPResponse HTTP::get(std::string path) {
     return HTTPResponse(code, buffer.c_str());
 }
 
-std::string HTTP::buildURL(std::string &path) {
-    char url[baseURI.length() + path.length() + baseKEY.length() + 3];
-    sprintf(url, "%s%s?k=%s", baseURI.c_str(), path.c_str(), baseKEY.c_str());
+std::string HTTP::buildURL(std::string &path, std::map<std::string, std::string> &parameters) {
+    std::string url = baseURI + path + "?k=" + baseKEY;
+    for (auto const &param : parameters) {
+        url.append("&" + param.first + "=" + param.second);
+    }
     return url;
 }
 

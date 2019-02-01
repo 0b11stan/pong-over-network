@@ -6,6 +6,7 @@
 #define BROCKENBRICK_REMOTE_H
 
 #include <curl/curl.h>
+#include <map>
 #include <string>
 #include "HTTPResponse.h"
 
@@ -20,7 +21,7 @@ public:
 
     ~HTTP();
 
-    HTTPResponse get(std::string path);
+    HTTPResponse get(std::string path, std::map<std::string, std::string> parameters = {});
 
 //    HTTPResponse post(std::string path);
 //
@@ -40,7 +41,7 @@ private:
     char errorBuffer[CURL_ERROR_SIZE];
     std::string buffer;
 
-    std::string buildURL(std::string &path);
+    std::string buildURL(std::string &path, std::map<std::string, std::string> &parameters);
 
     void setUrl(std::string url);
 
