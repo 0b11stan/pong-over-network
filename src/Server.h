@@ -8,6 +8,7 @@
 
 #include <ctime>
 #include <string>
+#include <sstream>
 #include "HTTP.h"
 
 class Server {
@@ -17,7 +18,7 @@ public:
 
     std::string help();
 
-    int ping();
+    long ping();
 
 private:
     HTTP &connection;
