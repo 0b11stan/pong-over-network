@@ -13,7 +13,7 @@ Server::Server(HTTP &connection) : connection(connection) {
 
 std::string Server::help() { return connection.get("/help").getBody(); }
 
-long Server::ping() {
+long long Server::ping() {
     long long t0 = getTimestamp();
     long long t1;
     long long t2;
@@ -30,7 +30,7 @@ long Server::ping() {
     if (!(std::istringstream(result["t2"]) >> t2)) t2 = 0;
     if (t1 == 0 or t2 == 0) exit(EXIT_FAILURE);
 
-    return ((t1 - t0) + (t2 - t3)) / 2;
+    return (t3 - t0) - (t2 - t1);
 }
 
 long long int Server::getTimestamp() {

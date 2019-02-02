@@ -20,25 +20,21 @@ int main(int argc, char *args[]) {
     HTTP http("http://syllab.com/PTRE839", "255058");
     Server server(http);
 
+    printf("ping : %lli", server.ping());
 
-    printf("ping : %li", server.ping());
+    Position positionPlayer = Position(
+            playerOutput.getWidth() - 50 - Pad::width,
+            playerOutput.getHeight() / 2 - Pad::height / 2);
 
-//    remote.requestHelp();
-//
-//
-//    Position positionPlayer = Position(
-//            playerOutput.getWidth() - 50 - Pad::width,
-//            playerOutput.getHeight() / 2 - Pad::height / 2);
-//
-//    Position positionOpponent = Position(50, playerOutput.getHeight() / 2 - Pad::height / 2);
-//
-//    Pad padPlayer = Pad(positionPlayer);
-//    Pad padOpponent = Pad(positionOpponent);
-//    Ball ball = Ball(Position(200, 200), 50);
-//
-//    Room room = Room(ball, padPlayer, padOpponent, playerOutput.getWidth(), playerOutput.getHeight());
-//    Game game = Game(playerInput, playerOutput, room);
-//    game.run();
+    Position positionOpponent = Position(50, playerOutput.getHeight() / 2 - Pad::height / 2);
+
+    Pad padPlayer = Pad(positionPlayer);
+    Pad padOpponent = Pad(positionOpponent);
+    Ball ball = Ball(Position(200, 200), 50);
+
+    Room room = Room(ball, padPlayer, padOpponent, playerOutput.getWidth(), playerOutput.getHeight());
+    Game game = Game(playerInput, playerOutput, room);
+    game.run();
 
     return 0;
 

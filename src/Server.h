@@ -18,7 +18,7 @@ public:
 
     std::string help();
 
-    long ping();
+    long long ping();
 
 private:
     HTTP &connection;
