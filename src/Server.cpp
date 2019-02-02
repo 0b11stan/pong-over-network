@@ -14,27 +14,27 @@ Server::Server(HTTP &connection) : connection(connection) {
 std::string Server::help() { return connection.get("/help").getBody(); }
 
 long Server::ping() {
-    long int t0 = std::time(nullptr);
-    long int t1;
-    long int t2;
-    long int t3;
+    long long t0 = getTimestamp();
+    long long t1;
+    long long t2;
+    long long t3;
 
     std::map<std::string, std::string> args;
     args["t0"] = std::to_string(t0);
     HTTPResponse response = connection.get("/pings", args);
 
-    t3 = std::time(nullptr);
+    t3 = getTimestamp();
 
     auto result = response.to_map();
-    if ( !(std::istringstream(result["t1"]) >> t1) ) t1 = 0;
-    if ( !(std::istringstream(result["t2"]) >> t2) ) t2 = 0;
+    if (!(std::istringstream(result["t1"]) >> t1)) t1 = 0;
+    if (!(std::istringstream(result["t2"]) >> t2)) t2 = 0;
+    if (t1 == 0 or t2 == 0) exit(EXIT_FAILURE);
 
-    auto ping = ( (t1 - t0) + (t2 - t3) ) / 2;
+    return ((t1 - t0) + (t2 - t3)) / 2;
+}
 
-    // TODO : rectifier, faux resultat
-
-    printf("t0: %lu\nt1: %lu\nt2: %lu\nt3: %lu", t0, t1, t2, t3);
-    printf("\nping : %lu", ping);
-
-    return ping;
+long long int Server::getTimestamp() {
+    struct timeval tp{};
+    gettimeofday(&tp, nullptr);
+    return (long long) tp.tv_sec * 1000L + tp.tv_usec / 1000;;
 }

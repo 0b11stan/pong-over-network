@@ -22,6 +22,7 @@ public:
 
 private:
     HTTP &connection;
+    long long getTimestamp();
 
 };
 

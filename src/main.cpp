@@ -20,10 +20,8 @@ int main(int argc, char *args[]) {
     HTTP http("http://syllab.com/PTRE839", "255058");
     Server server(http);
 
-//    printf("aide : %s", server.help().c_str());
 
-    server.ping();
-//    printf("ping : %s", server.ping().c_str());
+    printf("ping : %li", server.ping());
 
 //    remote.requestHelp();
 //
