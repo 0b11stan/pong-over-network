@@ -27,6 +27,18 @@ SDL2Output::SDL2Output() {
             if (renderer == nullptr) {
                 printf("Renderer could not be created! SDL Error: %s\n", SDL_GetError());
                 success = false;
+            } else {
+                if (TTF_Init() == -1) {
+                    printf("SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError());
+                    success = false;
+                } else {
+                    font = TTF_OpenFont("/home/tristan/Documents/projects/pong-over-network/font/OpenSans-Regular.ttf",
+                                        28);
+                    if (font == nullptr) {
+                        printf("Failed to load font! SDL_ttf Error: %s\n", TTF_GetError());
+                        success = false;
+                    }
+                }
             }
         }
     }
@@ -36,10 +48,13 @@ SDL2Output::SDL2Output() {
 
 
 void SDL2Output::close() {
+    TTF_CloseFont(font);
+    font = nullptr;
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     window = nullptr;
     renderer = nullptr;
+    TTF_Quit();
     SDL_Quit();
 }
 
@@ -57,6 +72,8 @@ void SDL2Output::clear() {
 
 
 void SDL2Output::render() {
+    std::string text("Hello World!");
+    write(text, 0, 0);
     SDL_RenderPresent(renderer);
 }
 
@@ -72,5 +89,26 @@ void SDL2Output::drawPurpleBox(Position position, int width, int height, int thi
     drawRect(position, width, height);
     SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
     drawRect(position + thickness, width - thickness * 2, height - thickness * 2);
+}
+
+void SDL2Output::write(std::string &text, int x, int y) {
+    SDL_Color color = {0, 0, 0};
+
+    SDL_Surface *surface = TTF_RenderText_Solid(font, text.c_str(), color);
+
+    SDL_Texture *pingTexture = SDL_CreateTextureFromSurface(renderer, surface);
+    int width = surface->w;
+    int height = surface->h;
+    SDL_FreeSurface(surface);
+
+    double rotation = 0.0;
+    SDL_Point *center = nullptr;
+    SDL_RendererFlip flip = SDL_FLIP_NONE;
+
+    SDL_Rect renderQuad = {x, y, width, height};
+
+    SDL_RenderCopyEx(renderer, pingTexture, nullptr, &renderQuad, rotation, center, flip);
+
+    SDL_DestroyTexture(pingTexture);
 }
 

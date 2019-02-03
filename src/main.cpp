@@ -17,10 +17,9 @@ int main(int argc, char *args[]) {
     SDL2Input playerInput;
     SDL2Output playerOutput;
 
-    HTTP http("http://syllab.com/PTRE839", "255058");
+//    HTTP http("http://syllab.com/PTRE839", "255058");
+    HTTP http("http://rtplay.local", "123");
     Server server(http);
-
-    printf("ping : %lli", server.ping());
 
     Position positionPlayer = Position(
             playerOutput.getWidth() - 50 - Pad::width,

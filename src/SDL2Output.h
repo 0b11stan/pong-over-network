@@ -6,7 +6,9 @@
 #define BROCKENBRICK_SDL2OUTPUT_H
 
 
+#include <string>
 #include <SDL.h>
+#include <SDL_ttf.h>
 #include "PlayerOutput.h"
 
 class SDL2Output : public PlayerOutput {
@@ -30,11 +32,13 @@ public:
 
     void render() override;
 
+    void write(std::string &text, int x, int y) override;
+
 private:
     SDL_Window *window = nullptr;
     SDL_Renderer *renderer = nullptr;
 
-
+    TTF_Font *font;
 };
 
 

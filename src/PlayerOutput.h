@@ -6,6 +6,7 @@
 #define BROCKENBRICK_PLAYEROUTPUT_H
 
 
+#include <string>
 #include "Position.h"
 
 class PlayerOutput {
@@ -26,6 +27,8 @@ public:
     virtual void clear() = 0;
 
     virtual void render() = 0;
+
+    virtual void write(std::string &text, int x, int y) = 0;
 
 };
 
