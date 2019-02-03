@@ -33,7 +33,6 @@ void Game::display() {
 }
 
 void Game::displayPing() {
-    server.updatePing();
     std::string ping = "ping : " + std::to_string(server.getPing());
     playerOutput.write(ping);
 }
@@ -49,6 +48,7 @@ bool Game::handle(Action &action) {
             return true;
         case QUIT:
         default:
+            server.close();
             return false;
     }
 }

@@ -8,6 +8,9 @@
 #include <ctime>
 #include <string>
 #include <sstream>
+#include <vector>
+#include <SDL_thread.h>
+#include <SDL_timer.h>
 #include "HTTP.h"
 
 using namespace std;
@@ -15,10 +18,13 @@ using namespace std;
 class Server {
 
     // TODO : abstraire tout le vocabulaire http pour être plus flexible
+    // TODO : faire une sémaphore pour la variable ping
 
 public:
 
-    void updatePing();
+    Server();
+
+    void close();
 
     static int run_pingUpdate(void *data);
 
@@ -26,10 +32,11 @@ public:
 
 private:
 
-    static long long getTimestamp();
+    int ping = 0;
+    static bool stopped;
+    vector<SDL_Thread *> threads = vector<SDL_Thread *>();
 
-    // TODO : faire une sémaphore pour la variable ping
-    int ping = 0; // ! not thread safe
+    static long long getTimestamp();
 
 };
 
