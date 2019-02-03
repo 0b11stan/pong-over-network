@@ -5,8 +5,6 @@
 #include <SDL_thread.h>
 #include "Server.h"
 
-//std::string Server::help() { return httpConnection.get("/help").getBody(); }
-
 int Server::run_pingUpdate(void *server) {
     auto *parent = static_cast<Server *>(server);
 
@@ -15,16 +13,16 @@ int Server::run_pingUpdate(void *server) {
     long long t2;
     long long t3;
 
-    std::map<std::string, std::string> args;
-    args["t0"] = std::to_string(t0);
+    map<string, string> args;
+    args["t0"] = to_string(t0);
     HTTPResponse response;
     HTTP::get("/pings", response, args);
 
     t3 = getTimestamp();
 
     auto result = response.to_map();
-    if (!(std::istringstream(result["t1"]) >> t1)) t1 = 0;
-    if (!(std::istringstream(result["t2"]) >> t2)) t2 = 0;
+    if (!(istringstream(result["t1"]) >> t1)) t1 = 0;
+    if (!(istringstream(result["t2"]) >> t2)) t2 = 0;
 
     if (t1 == 0 or t2 == 0) exit(EXIT_FAILURE);
 
@@ -40,5 +38,5 @@ long long int Server::getTimestamp() {
 }
 
 void Server::updatePing() {
-    SDL_Thread *pingUpdater = SDL_CreateThread(run_pingUpdate, "PON Ping Updater", (void *)this);
+    SDL_Thread *pingUpdater = SDL_CreateThread(run_pingUpdate, "PON Ping Updater", (void *) this);
 }

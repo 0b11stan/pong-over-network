@@ -10,24 +10,22 @@
 #include <string>
 #include "HTTPResponse.h"
 
+using namespace std;
+
 class HTTP {
 
 public:
 
-    static const std::string baseURI;
-    static const std::string baseKEY;
+    static const string baseURI;
+    static const string baseKEY;
 
-//    static CURL *create();
-
-    static void destroy(CURL *connection);
-
-    static void get(std::string path, HTTPResponse &response, std::map<std::string, std::string> parameters = {});
+    static void get(string path, HTTPResponse &response, map<string, string> parameters = {});
 
 private:
 
-    static std::string buildURL(std::string &path, std::map<std::string, std::string> &parameters);
+    static string buildURL(string &path, map<string, string> &parameters);
 
-    static size_t writer(char *inputContent, size_t sizeFactor, size_t contentSize, std::string *outputContent);
+    static size_t writer(char *inputContent, size_t sizeFactor, size_t contentSize, string *outputContent);
 
 };
 

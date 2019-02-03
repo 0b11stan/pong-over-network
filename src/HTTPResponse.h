@@ -5,10 +5,11 @@
 #ifndef PONG_OVER_NETWORK_HTTPRESPONSE_H
 #define PONG_OVER_NETWORK_HTTPRESPONSE_H
 
-
 #include <string>
 #include <curl/curl.h>
 #include <map>
+
+using namespace std;
 
 enum JSON {
     START_KEY, END_KEY, START_VALUE, END_VALUE
@@ -17,9 +18,9 @@ enum JSON {
 class HTTPResponse {
 
 public:
-    const std::map<std::string, std::string> to_map();
+    const map<string, string> to_map();
 
-    std::string body;
+    string body;
     CURLcode code;
 
 };

@@ -5,11 +5,11 @@
 #include <iostream>
 #include "HTTPResponse.h"
 
-const std::map<std::string, std::string> HTTPResponse::to_map() {
+const map<string, string> HTTPResponse::to_map() {
 
-    std::map<std::string, std::string> map;
-    std::string key;
-    std::string value;
+    map<string, string> map;
+    string key;
+    string value;
 
     JSON state = JSON::END_VALUE;
 

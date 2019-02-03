@@ -89,7 +89,7 @@ void SDL2Output::drawPurpleBox(Position position, int width, int height, int thi
     drawRect(position + thickness, width - thickness * 2, height - thickness * 2);
 }
 
-void SDL2Output::writeText(std::string &text, int x, int y, int width, int height) {
+void SDL2Output::writeText(string &text, int x, int y, int width, int height) {
     SDL_Color color = {0, 0, 0};
 
     SDL_Surface *surface = TTF_RenderText_Solid(font, text.c_str(), color);

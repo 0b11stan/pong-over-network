@@ -5,18 +5,18 @@
 #ifndef PONG_OVER_NETWORK_SERVER_H
 #define PONG_OVER_NETWORK_SERVER_H
 
-
 #include <ctime>
 #include <string>
 #include <sstream>
 #include "HTTP.h"
+
+using namespace std;
 
 class Server {
 
     // TODO : abstraire tout le vocabulaire http pour être plus flexible
 
 public:
-//    std::string help();
 
     void updatePing();
 

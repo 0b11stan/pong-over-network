@@ -5,9 +5,10 @@
 #ifndef BROCKENBRICK_PLAYEROUTPUT_H
 #define BROCKENBRICK_PLAYEROUTPUT_H
 
-
 #include <string>
 #include "Position.h"
+
+using namespace std;
 
 class PlayerOutput {
 
@@ -28,11 +29,11 @@ public:
 
     virtual void render() = 0;
 
-    virtual void write(std::string &text) = 0;
+    virtual void write(string &text) = 0;
 
-    virtual void write(std::string &text, int x, int y) = 0;
+    virtual void write(string &text, int x, int y) = 0;
 
-    virtual void write(std::string &text, int x, int y, int width, int height) = 0;
+    virtual void write(string &text, int x, int y, int width, int height) = 0;
 
 };
 

@@ -11,6 +11,8 @@
 #include <SDL_ttf.h>
 #include "PlayerOutput.h"
 
+using namespace std;
+
 class SDL2Output : public PlayerOutput {
 
 public:
@@ -32,11 +34,11 @@ public:
 
     void render() override;
 
-    void write(std::string &text) override { writeText(text); }
+    void write(string &text) override { writeText(text); }
 
-    void write(std::string &text, int x, int y) override { writeText(text, x, y); }
+    void write(string &text, int x, int y) override { writeText(text, x, y); }
 
-    void write(std::string &text, int x, int y, int width, int height) override {
+    void write(string &text, int x, int y, int width, int height) override {
         writeText(text, x, y, width, height);
     }
 
@@ -46,7 +48,7 @@ private:
     SDL_Renderer *renderer = nullptr;
     TTF_Font *font;
 
-    void writeText(std::string &text, int x = 0, int y = 0, int width = 0, int height = 0);
+    void writeText(string &text, int x = 0, int y = 0, int width = 0, int height = 0);
 };
 
 
