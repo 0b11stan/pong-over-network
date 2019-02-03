@@ -32,8 +32,7 @@ SDL2Output::SDL2Output() {
                     printf("SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError());
                     success = false;
                 } else {
-                    font = TTF_OpenFont("/home/tristan/Documents/projects/pong-over-network/font/OpenSans-Regular.ttf",
-                                        28);
+                    font = TTF_OpenFont("../font/OpenSans-Regular.ttf", 28);
                     if (font == nullptr) {
                         printf("Failed to load font! SDL_ttf Error: %s\n", TTF_GetError());
                         success = false;
