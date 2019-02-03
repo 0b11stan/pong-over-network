@@ -10,17 +10,19 @@
 #include "PlayerOutput.h"
 #include "Ball.h"
 #include "Room.h"
+#include "Server.h"
 
 class Game {
 
 public:
-    Game(PlayerInput &playerInput, PlayerOutput &playerOutput, Room room);
+    Game(PlayerInput &playerInput, PlayerOutput &playerOutput, Room room, Server &server);
 
     void run();
 
 private:
     PlayerInput &playerInput;
     PlayerOutput &playerOutput;
+    Server &server;
     Room room;
 
     void display();

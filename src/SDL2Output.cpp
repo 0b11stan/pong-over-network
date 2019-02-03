@@ -72,8 +72,6 @@ void SDL2Output::clear() {
 
 
 void SDL2Output::render() {
-    std::string text("Hello World!");
-    write(text);
     SDL_RenderPresent(renderer);
 }
 

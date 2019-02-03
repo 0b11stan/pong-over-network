@@ -6,8 +6,8 @@
 #include <unistd.h>
 #include "Game.h"
 
-Game::Game(PlayerInput &playerInput, PlayerOutput &playerOutput, Room room)
-        : playerInput(playerInput), playerOutput(playerOutput), room(room) {}
+Game::Game(PlayerInput &playerInput, PlayerOutput &playerOutput, Room room, Server &server)
+        : playerInput(playerInput), playerOutput(playerOutput), room(room), server(server) {}
 
 
 void Game::run() {
@@ -28,6 +28,8 @@ void Game::run() {
 void Game::display() {
     room.process();
     room.display(playerOutput);
+    std::string ping = "ping : " + std::to_string(server.ping());
+    playerOutput.write(ping);
 }
 
 

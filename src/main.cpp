@@ -32,7 +32,7 @@ int main(int argc, char *args[]) {
     Ball ball = Ball(Position(200, 200), 50);
 
     Room room = Room(ball, padPlayer, padOpponent, playerOutput.getWidth(), playerOutput.getHeight());
-    Game game = Game(playerInput, playerOutput, room);
+    Game game = Game(playerInput, playerOutput, room, server);
     game.run();
 
     return 0;
