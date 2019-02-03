@@ -13,16 +13,23 @@
 
 class Server {
 
+    // TODO : abstraire tout le vocabulaire http pour être plus flexible
+
 public:
-    explicit Server(HTTP &connection);
+//    std::string help();
 
-    std::string help();
+    void updatePing();
 
-    long long ping();
+    static int run_pingUpdate(void *data);
+
+    const int getPing() { return ping; }
 
 private:
-    HTTP &connection;
-    long long getTimestamp();
+
+    static long long getTimestamp();
+
+    // TODO : faire une sémaphore pour la variable ping
+    int ping = 0; // ! not thread safe
 
 };
 

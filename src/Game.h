@@ -27,6 +27,8 @@ private:
 
     void display();
 
+    void displayPing();
+
     bool handle(Action &action);
 
 };

@@ -4,6 +4,7 @@
 
 #include <cstdio>
 #include <unistd.h>
+#include <SDL_timer.h>
 #include "Game.h"
 
 Game::Game(PlayerInput &playerInput, PlayerOutput &playerOutput, Room room, Server &server)
@@ -18,7 +19,7 @@ void Game::run() {
         display();
         playerOutput.render();
         playerInput.read(action);
-        usleep(5000);
+        SDL_Delay(10);
     } while (handle(action));
 
     playerOutput.close();
@@ -28,7 +29,12 @@ void Game::run() {
 void Game::display() {
     room.process();
     room.display(playerOutput);
-    std::string ping = "ping : " + std::to_string(server.ping());
+    displayPing();
+}
+
+void Game::displayPing() {
+    server.updatePing();
+    std::string ping = "ping : " + std::to_string(server.getPing());
     playerOutput.write(ping);
 }
 

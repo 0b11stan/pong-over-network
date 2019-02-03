@@ -10,40 +10,22 @@
 #include <string>
 #include "HTTPResponse.h"
 
-enum HttpMethod {
-    GET, POST, DELETE
-};
-
 class HTTP {
 
 public:
-    explicit HTTP(char *baseURI, char *baseKEY);
 
-    ~HTTP();
+    static const std::string baseURI;
+    static const std::string baseKEY;
 
-    HTTPResponse get(std::string path, std::map<std::string, std::string> parameters = {});
+//    static CURL *create();
 
-//    HTTPResponse post(std::string path);
-//
-//    HTTPResponse delet(std::string path);
+    static void destroy(CURL *connection);
 
-    bool init();
+    static void get(std::string path, HTTPResponse &response, std::map<std::string, std::string> parameters = {});
 
 private:
-    /**
-     * TODO : on peut proposer à l'utilisateur de choisir
-     * qui il est dans une list déroulante qui viendra d'un
-     * appel au serveur ==> /players
-     */
-    CURL *curlHandler;
-    std::string baseURI;
-    std::string baseKEY;
-    char errorBuffer[CURL_ERROR_SIZE];
-    std::string buffer;
 
-    std::string buildURL(std::string &path, std::map<std::string, std::string> &parameters);
-
-    void setUrl(std::string url);
+    static std::string buildURL(std::string &path, std::map<std::string, std::string> &parameters);
 
     static size_t writer(char *inputContent, size_t sizeFactor, size_t contentSize, std::string *outputContent);
 

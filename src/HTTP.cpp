@@ -4,39 +4,29 @@
 
 #include "HTTP.h"
 
+//const std::string HTTP::baseURI = "http://rtplay.local";
+//const std::string HTTP::baseKEY = "123";
+const std::string HTTP::baseURI = "http://syllab.com/PTRE839";
+const std::string HTTP::baseKEY = "255058";
 
-HTTP::HTTP(char *baseURI, char *baseKEY) : baseURI(baseURI), baseKEY(baseKEY) {}
 
-HTTP::~HTTP() { curl_easy_cleanup(curlHandler); }
-
-HTTPResponse HTTP::get(std::string path, std::map<std::string, std::string> parameters) {
+void HTTP::get(std::string path, HTTPResponse &response, std::map<std::string, std::string> parameters) {
     std::string url = buildURL(path, parameters);
-    setUrl(url);
+    CURL *curlHandler = curl_easy_init();
 
-    CURLcode code = curl_easy_perform(curlHandler);
+    curl_easy_setopt(curlHandler, CURLOPT_WRITEFUNCTION, writer);
+    curl_easy_setopt(curlHandler, CURLOPT_URL, url.c_str());
+    curl_easy_setopt(curlHandler, CURLOPT_WRITEDATA, &response.body);
 
-    if (code != CURLE_OK) {
-        fprintf(stderr, "Failed to get '%s' [%s]\n", "path", errorBuffer);
-        exit(EXIT_FAILURE);
-    }
-    return HTTPResponse(code, buffer.c_str());
+    response.code = curl_easy_perform(curlHandler);
+
+    curl_easy_cleanup(curlHandler);
 }
 
 std::string HTTP::buildURL(std::string &path, std::map<std::string, std::string> &parameters) {
     std::string url = baseURI + path + "?k=" + baseKEY;
-    for (auto const &param : parameters) {
-        url.append("&" + param.first + "=" + param.second);
-    }
+    for (auto const &param : parameters) url.append("&" + param.first + "=" + param.second);
     return url;
-}
-
-void HTTP::setUrl(std::string url) {
-    CURLcode code;
-    code = curl_easy_setopt(curlHandler, CURLOPT_URL, url.c_str());
-    if (code != CURLE_OK) {
-        fprintf(stderr, "Failed to set url [%s]\n", errorBuffer);
-        exit(EXIT_FAILURE);
-    }
 }
 
 size_t HTTP::writer(char *inputContent, size_t sizeFactor, size_t contentSize, std::string *outputContent) {
@@ -45,33 +35,4 @@ size_t HTTP::writer(char *inputContent, size_t sizeFactor, size_t contentSize, s
     return sizeFactor * contentSize;
 }
 
-bool HTTP::init() {
-    CURLcode code;
-    curlHandler = curl_easy_init();
-
-    if (curlHandler == nullptr) {
-        fprintf(stderr, "Failed to create CURL connection\n");
-        exit(EXIT_FAILURE);
-    }
-
-    code = curl_easy_setopt(curlHandler, CURLOPT_ERRORBUFFER, errorBuffer);
-    if (code != CURLE_OK) {
-        fprintf(stderr, "Failed to set error buffer [%d]\n", code);
-        return false;
-    }
-
-    code = curl_easy_setopt(curlHandler, CURLOPT_WRITEFUNCTION, writer);
-    if (code != CURLE_OK) {
-        fprintf(stderr, "Failed to set writer [%s]\n", errorBuffer);
-        return false;
-    }
-
-    code = curl_easy_setopt(curlHandler, CURLOPT_WRITEDATA, &buffer);
-    if (code != CURLE_OK) {
-        fprintf(stderr, "Failed to set output data [%s]\n", errorBuffer);
-        return false;
-    }
-
-    return true;
-}
 

@@ -13,7 +13,7 @@ const std::map<std::string, std::string> HTTPResponse::to_map() {
 
     JSON state = JSON::END_VALUE;
 
-    for (auto const &elem : responseBody) {
+    for (auto const &elem : body) {
         switch (state) {
             case JSON::START_KEY:
                 if (elem == '"') state = JSON::END_KEY;
