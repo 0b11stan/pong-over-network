@@ -32,13 +32,21 @@ public:
 
     void render() override;
 
-    void write(std::string &text, int x, int y) override;
+    void write(std::string &text) override { writeText(text); }
+
+    void write(std::string &text, int x, int y) override { writeText(text, x, y); }
+
+    void write(std::string &text, int x, int y, int width, int height) override {
+        writeText(text, x, y, width, height);
+    }
+
 
 private:
     SDL_Window *window = nullptr;
     SDL_Renderer *renderer = nullptr;
-
     TTF_Font *font;
+
+    void writeText(std::string &text, int x = 0, int y = 0, int width = 0, int height = 0);
 };
 
 

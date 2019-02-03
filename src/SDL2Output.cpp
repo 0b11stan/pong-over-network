@@ -73,7 +73,7 @@ void SDL2Output::clear() {
 
 void SDL2Output::render() {
     std::string text("Hello World!");
-    write(text, 0, 0);
+    write(text);
     SDL_RenderPresent(renderer);
 }
 
@@ -91,20 +91,21 @@ void SDL2Output::drawPurpleBox(Position position, int width, int height, int thi
     drawRect(position + thickness, width - thickness * 2, height - thickness * 2);
 }
 
-void SDL2Output::write(std::string &text, int x, int y) {
+void SDL2Output::writeText(std::string &text, int x, int y, int width, int height) {
     SDL_Color color = {0, 0, 0};
 
     SDL_Surface *surface = TTF_RenderText_Solid(font, text.c_str(), color);
-
     SDL_Texture *pingTexture = SDL_CreateTextureFromSurface(renderer, surface);
-    int width = surface->w;
-    int height = surface->h;
     SDL_FreeSurface(surface);
 
     double rotation = 0.0;
     SDL_Point *center = nullptr;
     SDL_RendererFlip flip = SDL_FLIP_NONE;
 
+    if (width == 0 or height == 0) {
+        width = surface->w;
+        height = surface->h;
+    }
     SDL_Rect renderQuad = {x, y, width, height};
 
     SDL_RenderCopyEx(renderer, pingTexture, nullptr, &renderQuad, rotation, center, flip);

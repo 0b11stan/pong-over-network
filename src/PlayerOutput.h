@@ -28,7 +28,11 @@ public:
 
     virtual void render() = 0;
 
+    virtual void write(std::string &text) = 0;
+
     virtual void write(std::string &text, int x, int y) = 0;
+
+    virtual void write(std::string &text, int x, int y, int width, int height) = 0;
 
 };
 
