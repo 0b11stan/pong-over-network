@@ -15,10 +15,12 @@ set(SOURCE_FILES
         src/Movement.cpp src/Movement.h
         src/Room.cpp src/Room.h
         src/Pad.cpp src/Pad.h
-        src/HTTP.cpp src/HTTP.h src/Server.cpp src/Server.h src/HTTPResponse.cpp src/HTTPResponse.h)
+        src/HTTP.cpp src/HTTP.h
+        src/Server.cpp src/Server.h
+        src/HTTPResponse.cpp src/HTTPResponse.h)
 
 find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIR})
 
 add_executable(pon ${SOURCE_FILES})
-target_link_libraries(pon ${SDL2_LIBRARY} curl)
+target_link_libraries(pon ${SDL2_LIBRARY} SDL2_ttf curl)
