@@ -6,7 +6,19 @@
 #define PONG_OVER_NETWORK_HUD_H
 
 
+#include "Server.h"
+#include "PlayerOutput.h"
+
 class HUD {
+
+public:
+    explicit HUD(Server &server, PlayerOutput &playerOutput);
+
+    void display();
+
+private:
+    Server &server;
+    PlayerOutput &playerOutput;
 
 };
 

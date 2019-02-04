@@ -11,6 +11,7 @@
 #include "Pad.h"
 #include "HTTP.h"
 #include "Server.h"
+#include "HUD.h"
 
 
 int main(int argc, char *args[]) {
@@ -18,6 +19,7 @@ int main(int argc, char *args[]) {
     SDL2Output playerOutput;
 
     Server server = Server();
+    HUD hud = HUD(server, playerOutput);
 
     Position positionPlayer = Position(
             playerOutput.getWidth() - 50 - Pad::width,
@@ -30,7 +32,7 @@ int main(int argc, char *args[]) {
     Ball ball = Ball(Position(200, 200), 50);
 
     Room room = Room(ball, padPlayer, padOpponent, playerOutput.getWidth(), playerOutput.getHeight());
-    Game game = Game(playerInput, playerOutput, room, server);
+    Game game = Game(playerInput, playerOutput, room, hud, server);
     game.run();
 
     return 0;

@@ -7,8 +7,8 @@
 #include <SDL_timer.h>
 #include "Game.h"
 
-Game::Game(PlayerInput &playerInput, PlayerOutput &playerOutput, Room room, Server &server)
-        : playerInput(playerInput), playerOutput(playerOutput), room(room), server(server) {}
+Game::Game(PlayerInput &playerInput, PlayerOutput &playerOutput, Room &room, HUD &hud, Server &server)
+        : playerInput(playerInput), playerOutput(playerOutput), room(room), hud(hud), server(server) {}
 
 
 void Game::run() {
@@ -16,6 +16,7 @@ void Game::run() {
 
     do {
         playerOutput.clear();
+        process();
         display();
         playerOutput.render();
         playerInput.read(action);
@@ -23,20 +24,16 @@ void Game::run() {
     } while (handle(action));
 
     playerOutput.close();
+}
 
+void Game::process() {
+    room.process();
 }
 
 void Game::display() {
-    room.process();
     room.display(playerOutput);
-    displayPing();
+    hud.display();
 }
-
-void Game::displayPing() {
-    std::string ping = "ping : " + std::to_string(server.getPing());
-    playerOutput.write(ping);
-}
-
 
 bool Game::handle(Action &action) {
     switch (action) {

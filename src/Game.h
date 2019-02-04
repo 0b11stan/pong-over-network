@@ -11,11 +11,12 @@
 #include "Ball.h"
 #include "Room.h"
 #include "Server.h"
+#include "HUD.h"
 
 class Game {
 
 public:
-    Game(PlayerInput &playerInput, PlayerOutput &playerOutput, Room room, Server &server);
+    Game(PlayerInput &playerInput, PlayerOutput &playerOutput, Room &room, HUD &hud, Server &server);
 
     void run();
 
@@ -23,11 +24,12 @@ private:
     PlayerInput &playerInput;
     PlayerOutput &playerOutput;
     Server &server;
-    Room room;
+    Room &room;
+    HUD &hud;
+
+    void process();
 
     void display();
-
-    void displayPing();
 
     bool handle(Action &action);
 

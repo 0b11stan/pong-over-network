@@ -17,7 +17,8 @@ set(SOURCE_FILES
         src/Pad.cpp src/Pad.h
         src/HTTP.cpp src/HTTP.h
         src/Server.cpp src/Server.h
-        src/HTTPResponse.cpp src/HTTPResponse.h)
+        src/HTTPResponse.cpp src/HTTPResponse.h
+        src/HUD.cpp src/HUD.h)
 
 find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIR})
