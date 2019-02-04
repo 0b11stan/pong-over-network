@@ -12,18 +12,20 @@
 class Player {
 
 public:
-    Player(int apiKey, Position &position, Movement &movement) :
-            position(position), apiKey(apiKey), movement(movement) {}
+    Player(int apiKey, Position position, PlayerOutput &playerOutput) : position(position), apiKey(apiKey),
+                                                                         playerOutput(playerOutput) {}
 
     const static int height = 200;
     const static int width = 40;
-    Position &position;
 
-    void display(PlayerOutput &playerOutput) const { playerOutput.drawRect(position, width, height); }
+    void display() const { playerOutput.drawRect(position, width, height); }
+
+    const Position &getPosition() const { return position; }
+
+    const Movement &getMovement() const { return movement; }
 
     const int &getKey() const { return apiKey; }
 
-    const Movement &getMovement() const { return movement; }
 
     void moveUp() { position += Movement(0, -movement.getY()); }
 
@@ -31,8 +33,12 @@ public:
 
 
 private:
-    Movement &movement;
+    Movement movement = Movement(0, 5);
+    PlayerOutput &playerOutput;
     const int apiKey;
+
+protected:
+    Position position;
 
 };
 

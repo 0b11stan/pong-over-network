@@ -13,6 +13,8 @@
 #include <SDL_timer.h>
 #include "HTTP.h"
 #include "Player.h"
+#include "LocalPlayer.h"
+#include "RemotePlayer.h"
 
 using namespace std;
 
@@ -23,7 +25,7 @@ class Server {
 
 public:
 
-    explicit Server(Player &player, Player &opponent);
+    explicit Server(LocalPlayer &player, RemotePlayer &opponent);
 
     void close();
 
@@ -41,8 +43,8 @@ public:
 
 private:
 
-    Player player;
-    Player opponent;
+    LocalPlayer &player;
+    RemotePlayer &opponent;
     int ping = 0;
     static bool stopped;
 

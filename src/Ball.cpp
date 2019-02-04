@@ -7,7 +7,7 @@
 #include "Ball.h"
 
 
-void Ball::display(PlayerOutput &playerOutput) const {
+void Ball::display() const {
     // limit of a box containing the circle
     int minX = position.getX() - radius;
     int minY = position.getY() - radius;

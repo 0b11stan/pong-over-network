@@ -10,7 +10,6 @@
 Game::Game(PlayerInput &playerInput, PlayerOutput &playerOutput, Room &room, HUD &hud, Server &server)
         : playerInput(playerInput), playerOutput(playerOutput), room(room), hud(hud), server(server) {}
 
-
 void Game::run() {
     Action action;
 

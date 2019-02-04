@@ -14,8 +14,9 @@
 class Room {
 
 public:
-    Room(Ball &ball, Player &player, Player &opponent, int width, int height, int thickness,
-         PlayerOutput &playerOutput);
+    Room(Ball &ball, Player &player, Player &opponent, PlayerOutput &playerOutput);
+
+    static const int thickness = 10;
 
     void display() const;
 
@@ -34,7 +35,6 @@ public:
     const Player getOpponent() const { return opponent; }
 
 private:
-    int thickness;
     int width;
     int height;
     PlayerOutput &playerOutput;
