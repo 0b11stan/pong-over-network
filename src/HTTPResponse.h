@@ -18,7 +18,7 @@ enum JSON {
 class HTTPResponse {
 
 public:
-    const map<string, string> to_map();
+    const map<string, string> to_map() const;
 
     string body;
     CURLcode code;

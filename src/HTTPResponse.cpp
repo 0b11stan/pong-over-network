@@ -5,7 +5,7 @@
 #include <iostream>
 #include "HTTPResponse.h"
 
-const map<string, string> HTTPResponse::to_map() {
+const map<string, string> HTTPResponse::to_map() const {
 
     map<string, string> map;
     string key;

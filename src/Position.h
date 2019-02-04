@@ -11,23 +11,23 @@
 class Position {
 
 public:
-    Position(int x, int y);
+    Position(int x, int y) : x(x), y(y) {}
 
-    int getX();
+    const int getX() const { return x; }
 
-    int getY();
+    const int getY() const { return y; }
 
-    void setY(const int y) { ordinate = y; }
+    void setY(const int y) { this->y = y; }
 
-    Position &operator+=(Movement &movement);
+    Position &operator+=(const Movement &movement) { *this = *this + movement; return *this; }
 
-    Position operator+(Movement &movement);
+    Position operator+(const Movement &movement) const { return { x + movement.getX(), y + movement.getY() }; }
 
-    Position operator+(int margin) const;
+    Position operator+(const int margin) const { return { x + margin, y + margin }; }
 
 private:
-    int abscissa;
-    int ordinate;
+    int x;
+    int y;
 
 };
 

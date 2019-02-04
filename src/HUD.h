@@ -12,9 +12,9 @@
 class HUD {
 
 public:
-    explicit HUD(Server &server, PlayerOutput &playerOutput);
+    HUD(Server &server, PlayerOutput &playerOutput) : server(server), playerOutput(playerOutput) {}
 
-    void display();
+    void display() const;
 
 private:
     Server &server;

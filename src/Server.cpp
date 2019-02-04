@@ -38,7 +38,7 @@ int Server::run_padPlayerStateReader(void *parent) {
         map<string, string> result = response.to_map();
         int newY;
         if (!(istringstream(result["data"]) >> newY)) newY = 0;
-        server->opponent.getPosition().setY(newY);
+        server->opponent.position.setY(newY);
 
         SDL_Delay(100);
     }
@@ -50,7 +50,7 @@ int Server::run_padPlayerStateSender(void *parent) {
     auto *server = static_cast<Server *>(parent);
 
     while (not stopped) {
-        string data = to_string(server->player.getPosition().getY());
+        string data = to_string(server->player.position.getY());
 
         map<string, string> args;
         args["k"] = to_string(server->player.getKey());

@@ -5,9 +5,7 @@
 #include "HTTP.h"
 
 const string HTTP::baseURI = "http://rtplay.local";
-//const string HTTP::baseKEY = "123";
 //const string HTTP::baseURI = "http://syllab.com/PTRE839";
-//const string HTTP::baseKEY = "255058";
 
 void HTTP::post(string path, map<string, string> parameters) {
     string url = buildURL(path, parameters);

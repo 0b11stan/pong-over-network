@@ -9,12 +9,12 @@ set(SOURCE_FILES
         src/PlayerInput.h
         src/SDL2Output.h src/SDL2Output.cpp
         src/SDL2Input.h src/SDL2Input.cpp
-        src/Position.h src/Position.cpp
+        src/Position.h
         src/Ball.h src/Ball.cpp
         src/Game.h src/Game.cpp
-        src/Movement.cpp src/Movement.h
+        src/Movement.h
         src/Room.cpp src/Room.h
-        src/Player.cpp src/Player.h
+        src/Player.h
         src/HTTP.cpp src/HTTP.h
         src/Server.cpp src/Server.h
         src/HTTPResponse.cpp src/HTTPResponse.h

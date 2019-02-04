@@ -32,8 +32,8 @@ void Game::process() {
     room.process();
 }
 
-void Game::display() {
-    room.display(playerOutput);
+void Game::display() const {
+    room.display();
     hud.display();
 }
 

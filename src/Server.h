@@ -35,9 +35,10 @@ public:
 
     static int run_padPlayerStateReader(void *parent);
 
-    const int getPing() { return ping; }
+    const int getPing() const { return ping; }
 
     vector<SDL_Thread *> threads = vector<SDL_Thread *>();
+
 private:
 
     Player player;

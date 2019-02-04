@@ -29,7 +29,7 @@ private:
 
     void process();
 
-    void display();
+    void display() const;
 
     bool handle(Action &action);
 

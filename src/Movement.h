@@ -9,19 +9,19 @@
 class Movement {
 
 public:
-    Movement();
+    Movement() : x(0), y(0) {}
 
-    Movement(signed int vertical, signed int horizontal);
+    Movement(int vertical, int horizontal) : x(vertical), y(horizontal) {}
 
-    void revert();
+    void horizontalRevert() { x = -x; }
 
-    signed int getX();
+    int getX() const { return x; }
 
-    signed int getY();
+    int getY() const { return y; }
 
 private:
-    signed int horizontal;
-    signed int vertical;
+    int x;
+    int y;
 
 };
 

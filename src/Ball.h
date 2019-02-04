@@ -13,25 +13,24 @@
 class Ball {
 
 public:
-    Ball(Position center, int radius);
+    Ball(Position &center, Movement &movement, int radius) : position(center), radius(radius), movement(movement) {}
 
-    void display(PlayerOutput &playerOutput);
+    void display(PlayerOutput &playerOutput) const;
 
-    void move(Movement &movement);
+    void move() { position += movement; }
 
-    Position getPosition();
+    Position getPosition() const { return position; }
 
-    Movement &getMovement();
+    Movement &getMovement() const { return movement; }
 
-    int getRadius();
+    int getRadius() const { return radius; }
 
 private:
     int radius;
-    const int angle = 45;
-    Movement movement;
-    Position position;
+    Movement &movement;
+    Position &position;
 
-    bool contains(Position point);
+    bool contains(Position point) const;
 
 };
 
