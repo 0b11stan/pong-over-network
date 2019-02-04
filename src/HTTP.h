@@ -21,6 +21,8 @@ public:
 
     static void get(string path, HTTPResponse &response, map<string, string> parameters = {});
 
+    static void post(string path, string content, HTTPResponse &response, map<string, string> parameters = {});
+
 private:
 
     static string buildURL(string &path, map<string, string> &parameters);

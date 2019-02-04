@@ -4,18 +4,31 @@
 
 #include "HTTP.h"
 
-//const string HTTP::baseURI = "http://rtplay.local";
-//const string HTTP::baseKEY = "123";
-const string HTTP::baseURI = "http://syllab.com/PTRE839";
-const string HTTP::baseKEY = "255058";
+const string HTTP::baseURI = "http://rtplay.local";
+const string HTTP::baseKEY = "123";
+//const string HTTP::baseURI = "http://syllab.com/PTRE839";
+//const string HTTP::baseKEY = "255058";
 
+void HTTP::post(string path, string content, HTTPResponse &response, map<string, string> parameters) {
+    string url = buildURL(path, parameters);
+    CURL *curlHandler = curl_easy_init();
+
+    curl_easy_setopt(curlHandler, CURLOPT_URL, url.c_str());
+    curl_easy_setopt(curlHandler, CURLOPT_WRITEFUNCTION, writer);
+    curl_easy_setopt(curlHandler, CURLOPT_WRITEDATA, &response.body);
+    curl_easy_setopt(curlHandler, CURLOPT_POSTFIELDS, content.c_str());
+
+    response.code = curl_easy_perform(curlHandler);
+
+    curl_easy_cleanup(curlHandler);
+}
 
 void HTTP::get(string path, HTTPResponse &response, map<string, string> parameters) {
     string url = buildURL(path, parameters);
     CURL *curlHandler = curl_easy_init();
 
-    curl_easy_setopt(curlHandler, CURLOPT_WRITEFUNCTION, writer);
     curl_easy_setopt(curlHandler, CURLOPT_URL, url.c_str());
+    curl_easy_setopt(curlHandler, CURLOPT_WRITEFUNCTION, writer);
     curl_easy_setopt(curlHandler, CURLOPT_WRITEDATA, &response.body);
 
     response.code = curl_easy_perform(curlHandler);
