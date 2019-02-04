@@ -6,11 +6,7 @@
 
 Player::Player(int key, Position &position) : position(position), key(key) {}
 
-void Player::display(PlayerOutput &playerOutput) {
-    playerOutput.drawRect(position, width, height);
-}
+void Player::display(PlayerOutput &playerOutput) { playerOutput.drawRect(position, width, height); }
 
-void Player::move(Movement movement) {
-    position += movement;
-}
+void Player::move(Movement movement) { position += movement; }
 

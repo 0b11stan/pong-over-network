@@ -17,6 +17,8 @@ public:
 
     int getY();
 
+    void setY(const int y) { ordinate = y; }
+
     Position &operator+=(Movement &movement);
 
     Position operator+(Movement &movement);
