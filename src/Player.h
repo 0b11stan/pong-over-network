@@ -9,22 +9,26 @@
 #include "Position.h"
 #include "PlayerOutput.h"
 
-class Pad {
+class Player {
 
 public:
-    Pad(Position position);
+    explicit Player(int key, Position &position);
 
     const static int height = 200;
     const static int width = 40;
 
     void display(PlayerOutput &playerOutput);
 
+    const int getKey() { return key; }
+
+    Position &getPosition() { return position; };
+
     void move(Movement movement);
 
-    Position getPosition();
 
 private:
-    Position position;
+    Position &position;
+    const int key;
 
 };
 

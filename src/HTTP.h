@@ -17,11 +17,10 @@ class HTTP {
 public:
 
     static const string baseURI;
-    static const string baseKEY;
 
     static void get(string path, HTTPResponse &response, map<string, string> parameters = {});
 
-    static void post(string path, string content, HTTPResponse &response, map<string, string> parameters = {});
+    static void post(string path, map<string, string> parameters = {});
 
 private:
 

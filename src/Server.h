@@ -12,6 +12,7 @@
 #include <SDL_thread.h>
 #include <SDL_timer.h>
 #include "HTTP.h"
+#include "Player.h"
 
 using namespace std;
 
@@ -22,19 +23,27 @@ class Server {
 
 public:
 
-    Server();
+    explicit Server(Player &player, Player &opponent);
 
     void close();
 
-    static int run_pingUpdate(void *data);
+    void startStateSharing();
+
+    static int run_pingUpdater(void *parent);
+
+    static int run_padPlayerStateSender(void *parent);
+
+    static int run_padPlayerStateReader(void *parent);
 
     const int getPing() { return ping; }
 
+    vector<SDL_Thread *> threads = vector<SDL_Thread *>();
 private:
 
+    Player player;
+    Player opponent;
     int ping = 0;
     static bool stopped;
-    vector<SDL_Thread *> threads = vector<SDL_Thread *>();
 
     static long long getTimestamp();
 

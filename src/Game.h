@@ -21,9 +21,9 @@ public:
     void run();
 
 private:
+    Server &server;
     PlayerInput &playerInput;
     PlayerOutput &playerOutput;
-    Server &server;
     Room &room;
     HUD &hud;
 

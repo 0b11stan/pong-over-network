@@ -14,6 +14,8 @@ Game::Game(PlayerInput &playerInput, PlayerOutput &playerOutput, Room &room, HUD
 void Game::run() {
     Action action;
 
+    server.startStateSharing();
+
     do {
         playerOutput.clear();
         process();

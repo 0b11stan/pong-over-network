@@ -14,7 +14,7 @@ set(SOURCE_FILES
         src/Game.h src/Game.cpp
         src/Movement.cpp src/Movement.h
         src/Room.cpp src/Room.h
-        src/Pad.cpp src/Pad.h
+        src/Player.cpp src/Player.h
         src/HTTP.cpp src/HTTP.h
         src/Server.cpp src/Server.h
         src/HTTPResponse.cpp src/HTTPResponse.h

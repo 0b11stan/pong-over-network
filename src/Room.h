@@ -9,12 +9,12 @@
 #include "PlayerOutput.h"
 #include "Ball.h"
 #include "PlayerInput.h"
-#include "Pad.h"
+#include "Player.h"
 
 class Room {
 
 public:
-    Room(Ball ball, Pad padPlayer, Pad padOpponent, int width, int height);
+    Room(Ball &ball, Player &player, Player &opponent, int width, int height);
 
     void display(PlayerOutput &playerOutput);
 
@@ -24,17 +24,22 @@ public:
 
     bool collide(Ball ball);
 
-    bool collide(Pad pad, Movement padMovement);
+    bool collide(Player &player, Movement &movement);
 
-    bool collidePlayer(Pad pad, Ball ball);
+    bool collidePlayer(Player pad, Ball ball);
+
+    const Player getPlayer() { return player; }
+
+    const Player getOpponent() { return opponent; }
+
 
 private:
     int thickness;
     int width;
     int height;
     Ball ball;
-    Pad padPlayer;
-    Pad padOpponent;
+    Player &player;
+    Player &opponent;
 
 };
 

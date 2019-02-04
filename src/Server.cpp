@@ -3,12 +3,20 @@
 //
 
 #include "Server.h"
+#include "Player.h"
 
 bool Server::stopped = false;
 
-Server::Server() {
-    SDL_Thread *pingUpdater = SDL_CreateThread(run_pingUpdate, "PON Ping Updater", (void *) this);
+Server::Server(Player &player, Player &opponent): player(player), opponent(opponent) {
+    SDL_Thread *pingUpdater = SDL_CreateThread(run_pingUpdater, "PON Ping Updater", (void *) this);
     threads.push_back(pingUpdater);
+}
+
+void Server::startStateSharing() {
+    SDL_Thread *stateSender = SDL_CreateThread(run_padPlayerStateSender, "PON State Sender", (void *) this);
+//    SDL_Thread *stateReader = SDL_CreateThread(run_padPlayerStateReader, "PON State Sender", (void *) this);
+    threads.push_back(stateSender);
+//    threads.push_back(stateReader);
 }
 
 void Server::close() {
@@ -16,16 +24,56 @@ void Server::close() {
     for (auto &thread : threads) SDL_WaitThread(thread, nullptr);
 }
 
-int Server::run_pingUpdate(void *server) {
-    while (not stopped) {
-        auto *parent = static_cast<Server *>(server);
+int Server::run_padPlayerStateReader(void *parent) {
+    auto *server = static_cast<Server *>(parent);
 
+    while (not stopped) {
+        map<string, string> args;
+        args["k"] = to_string(server->player.getKey());
+        args["timeout"] = "5";
+        HTTPResponse response;
+        HTTP::get("/msgs", response, args);
+
+        printf("Read data from server : %s\n", response.body.c_str());
+
+        SDL_Delay(100);
+    }
+
+    return 0;
+}
+
+int Server::run_padPlayerStateSender(void *parent) {
+    auto *server = static_cast<Server *>(parent);
+
+    while (not stopped) {
+        string data = R"( {"y":)" + to_string(server->player.getPosition().getY()) + R"(} )";
+
+        map<string, string> args;
+        args["k"] = to_string(server->player.getKey());
+        args["to"] = to_string(server->opponent.getKey());
+        args["data"] = data;
+        HTTPResponse response;
+
+        printf("Send data to server : %s\n", data.c_str());
+        HTTP::post("/msgs", args);
+
+        SDL_Delay(100);
+    }
+
+    return 0;
+}
+
+int Server::run_pingUpdater(void *parent) {
+    auto *server = static_cast<Server *>(parent);
+
+    while (not stopped) {
         long long t0 = getTimestamp();
         long long t1;
         long long t2;
         long long t3;
 
         map<string, string> args;
+        args["k"] = to_string(server->player.getKey());
         args["t0"] = to_string(t0);
         HTTPResponse response;
         HTTP::get("/pings", response, args);
@@ -38,7 +86,7 @@ int Server::run_pingUpdate(void *server) {
 
         if (t1 == 0 or t2 == 0) exit(EXIT_FAILURE);
 
-        parent->ping = static_cast<int>((t3 - t0) - (t2 - t1));
+        server->ping = static_cast<int>((t3 - t0) - (t2 - t1));
 
         SDL_Delay(100);
     }

@@ -4,18 +4,18 @@
 
 #include "Room.h"
 
-Room::Room(Ball ball, Pad padPlayer, Pad padOpponent, int width, int height) :
-        ball(ball), padPlayer(padPlayer), padOpponent(padOpponent), thickness(10), width(width), height(height) {}
+Room::Room(Ball &ball, Player &player, Player &opponent, int width, int height) :
+        ball(ball), player(player), opponent(opponent), thickness(10), width(width), height(height) {}
 
 void Room::display(PlayerOutput &playerOutput) {
     playerOutput.drawPurpleBox(Position(0, 0), playerOutput.getWidth(), playerOutput.getHeight(), thickness);
     ball.display(playerOutput);
-    padPlayer.display(playerOutput);
-    padOpponent.display(playerOutput);
+    player.display(playerOutput);
+    opponent.display(playerOutput);
 }
 
 void Room::process() {
-    if (collidePlayer(padPlayer, ball)) ball.getMovement().revert();
+    if (collidePlayer(player, ball)) ball.getMovement().revert();
     else if (collide(ball)) ball.getMovement().revert();
     ball.move(ball.getMovement());
 }
@@ -25,11 +25,11 @@ void Room::handle(Action &action) {
     switch (action) {
         case Action::PRESS_UP_ARROW :
             movement = {0, -5};
-            if (!collide(padPlayer, movement)) padPlayer.move(movement);
+            if (!collide(player, movement)) player.move(movement);
             break;
         case Action::PRESS_DOWN_ARROW :
             movement = {0, 5};
-            if (!collide(padPlayer, movement)) padPlayer.move(movement);
+            if (!collide(player, movement)) player.move(movement);
             break;
         default:
             break;
@@ -44,20 +44,20 @@ bool Room::collide(Ball ball) {
     return (ballIsBeforeRoomMinY or ballIsAfterRoomMaxY);
 }
 
-bool Room::collide(Pad pad, Movement padMovement) {
-    int padNextY = (pad.getPosition() + padMovement).getY();
+bool Room::collide(Player &player, Movement &movement) {
+    int padNextY = (player.getPosition() + movement).getY();
     bool padIsBeforeRoomMinY = padNextY < thickness;
-    bool padIsAfterRoomMaxY = padNextY + Pad::height > height - thickness;
+    bool padIsAfterRoomMaxY = padNextY + Player::height > height - thickness;
 
     return (padIsBeforeRoomMinY or padIsAfterRoomMaxY);
 }
 
-bool Room::collidePlayer(Pad pad, Ball ball) {
+bool Room::collidePlayer(Player pad, Ball ball) {
     int ballNextY = (ball.getPosition() + ball.getMovement()).getY();
     int ballNextX = (ball.getPosition() + ball.getMovement()).getX();
     bool ballIsAfterPadMinY = ballNextY + ball.getRadius() > pad.getPosition().getY();
     bool ballIsAfterPadMaxX = ballNextX + ball.getRadius() > pad.getPosition().getX();
-    bool ballIsBeforePadMaxY = ballNextY - ball.getRadius() < pad.getPosition().getY() + Pad::height;
+    bool ballIsBeforePadMaxY = ballNextY - ball.getRadius() < pad.getPosition().getY() + Player::height;
 
     return (ballIsAfterPadMinY and ballIsBeforePadMaxY and ballIsAfterPadMaxX);
 }
