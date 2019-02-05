@@ -39,6 +39,8 @@ public:
 
     const int sendReadiness();
 
+    const int clearQueue() const;
+
     const bool remoteIsReady() const { return remoteReadiness; }
 
     const bool localIsReady() const { return localReadiness; }

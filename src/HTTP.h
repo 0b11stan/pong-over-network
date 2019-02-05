@@ -22,6 +22,8 @@ public:
 
     static void post(string path, map<string, string> parameters = {});
 
+    static void delete_(string path, map<string, string> parameters = {});
+
 private:
 
     static string buildURL(string &path, map<string, string> &parameters);

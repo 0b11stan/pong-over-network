@@ -33,6 +33,18 @@ void HTTP::get(string path, HTTPResponse &response, map<string, string> paramete
     curl_easy_cleanup(curlHandler);
 }
 
+void HTTP::delete_(string path, map<string, string> parameters) {
+    string url = buildURL(path, parameters);
+    CURL *curlHandler = curl_easy_init();
+
+    curl_easy_setopt(curlHandler, CURLOPT_URL, url.c_str());
+    curl_easy_setopt(curlHandler, CURLOPT_CUSTOMREQUEST,"DELETE");
+
+    curl_easy_perform(curlHandler);
+
+    curl_easy_cleanup(curlHandler);
+}
+
 string HTTP::buildURL(string &path, map<string, string> &parameters) {
     string url = baseURI + path + "?";
     for (auto const &param : parameters) url.append("&" + param.first + "=" + param.second);
@@ -44,5 +56,6 @@ size_t HTTP::writer(char *inputContent, size_t sizeFactor, size_t contentSize, s
     outputContent->append(inputContent, sizeFactor * contentSize);
     return sizeFactor * contentSize;
 }
+
 
 

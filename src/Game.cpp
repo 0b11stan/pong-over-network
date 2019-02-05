@@ -13,6 +13,7 @@ Game::Game(PlayerInput &playerInput, PlayerOutput &playerOutput, Room &room, HUD
 void Game::run() {
     Action action = NONE;
 
+    server.clearQueue();
     server.startStateSharing();
 
     do {

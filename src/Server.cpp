@@ -45,7 +45,7 @@ int Server::run_padPlayerStateReader(void *parent) {
             server->opponent.updateY(newY);
         }
 
-        SDL_Delay(100);
+        SDL_Delay(10);
     }
 
     return 0;
@@ -55,17 +55,19 @@ int Server::run_padPlayerStateSender(void *parent) {
     auto *server = static_cast<Server *>(parent);
 
     while (not stopped) {
-        string data = to_string(server->player.getPosition().getY());
+        if (server->remoteIsReady() and server->localIsReady()) {
+            string data = to_string(server->player.getPosition().getY());
 
-        map<string, string> args;
-        args["k"] = to_string(server->player.getKey());
-        args["to"] = to_string(server->opponent.getKey());
-        args["data"] = data;
+            map<string, string> args;
+            args["k"] = to_string(server->player.getKey());
+            args["to"] = to_string(server->opponent.getKey());
+            args["data"] = data;
 
-        HTTP::post("/msgs", args);
-        printf("Send data to server : %s\n", data.c_str());
+            HTTP::post("/msgs", args);
+            printf("Send data to server : %s\n", data.c_str());
+        }
 
-        SDL_Delay(100);
+        SDL_Delay(10);
     }
 
     return 0;
@@ -111,6 +113,16 @@ const int Server::sendReadiness() {
 
     printf("Send data to server : %s\n", "ready");
     HTTP::post("/msgs", args);
+
+    return 0;
+}
+
+const int Server::clearQueue() const {
+    map<string, string> args;
+    args["k"] = to_string(player.getKey());
+
+    HTTP::delete_("/players/" + to_string(player.getKey()), args);
+    printf("Clear the queue !\n");
 
     return 0;
 }
