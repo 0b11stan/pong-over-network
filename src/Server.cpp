@@ -14,7 +14,7 @@ Server::Server(LocalPlayer &player, RemotePlayer &opponent): player(player), opp
 
 void Server::startStateSharing() {
     SDL_Thread *stateSender = SDL_CreateThread(run_padPlayerStateSender, "PON State Sender", (void *) this);
-    SDL_Thread *stateReader = SDL_CreateThread(run_padPlayerStateReader, "PON State Sender", (void *) this);
+    SDL_Thread *stateReader = SDL_CreateThread(run_padPlayerStateReader, "PON State Reader", (void *) this);
     threads.push_back(stateSender);
     threads.push_back(stateReader);
 }
@@ -36,9 +36,14 @@ int Server::run_padPlayerStateReader(void *parent) {
 
         printf("Read data from server : %s\n", response.body.c_str());
         map<string, string> result = response.to_map();
-        int newY;
-        if (!(istringstream(result["data"]) >> newY)) newY = 0;
-        server->opponent.updateY(newY);
+
+        if (result["data"] == "ready") {
+            server->remoteReadiness = true;
+        } else {
+            int newY;
+            if (!(istringstream(result["data"]) >> newY)) newY = 0;
+            server->opponent.updateY(newY);
+        }
 
         SDL_Delay(100);
     }
@@ -56,7 +61,6 @@ int Server::run_padPlayerStateSender(void *parent) {
         args["k"] = to_string(server->player.getKey());
         args["to"] = to_string(server->opponent.getKey());
         args["data"] = data;
-        HTTPResponse response;
 
         HTTP::post("/msgs", args);
         printf("Send data to server : %s\n", data.c_str());
@@ -94,6 +98,20 @@ int Server::run_pingUpdater(void *parent) {
 
         SDL_Delay(100);
     }
+    return 0;
+}
+
+const int Server::sendReadiness() {
+    localReadiness = true;
+
+    map<string, string> args;
+    args["k"] = to_string(player.getKey());
+    args["to"] = to_string(opponent.getKey());
+    args["data"] = "ready";
+
+    printf("Send data to server : %s\n", "ready");
+    HTTP::post("/msgs", args);
+
     return 0;
 }
 

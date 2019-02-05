@@ -11,14 +11,21 @@ Game::Game(PlayerInput &playerInput, PlayerOutput &playerOutput, Room &room, HUD
         : playerInput(playerInput), playerOutput(playerOutput), room(room), hud(hud), server(server) {}
 
 void Game::run() {
-    Action action;
+    Action action = NONE;
 
     server.startStateSharing();
 
     do {
         playerOutput.clear();
-        process();
-        display();
+        if (server.localIsReady() and server.remoteIsReady()) {
+            playerOutput.setBackground(WHITE);
+            process();
+            display();
+        } else if (server.localIsReady() and not server.remoteIsReady()) {
+            playerOutput.setBackground(RED);
+        } else {
+            playerOutput.setBackground(WHITE);
+        }
         playerOutput.render();
         playerInput.read(action);
         SDL_Delay(10);
@@ -38,9 +45,12 @@ void Game::display() const {
 
 bool Game::handle(Action &action) {
     switch (action) {
-        case Action::PRESS_UP_ARROW :
-        case Action::PRESS_DOWN_ARROW :
+        case PRESS_UP_ARROW :
+        case PRESS_DOWN_ARROW :
             room.handle(action);
+            return true;
+        case RETURN:
+            server.sendReadiness();
             return true;
         case NONE:
             return true;

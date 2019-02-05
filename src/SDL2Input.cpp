@@ -17,11 +17,12 @@ void SDL2Input::read(Action &action) {
                 case SDLK_DOWN:
                     action = Action::PRESS_DOWN_ARROW;
                     break;
-                case SDLK_SPACE:
-                    action = Action::SPACE;
+                case SDLK_RETURN:
+                    action = Action::RETURN;
                     break;
                 default:
                     action = Action::NONE;
+                    break;
             }
         } else action = Action::NONE;
     }

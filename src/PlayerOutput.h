@@ -10,6 +10,8 @@
 
 using namespace std;
 
+enum BG_COLOR { RED, WHITE };
+
 class PlayerOutput {
 
 public:
@@ -18,6 +20,8 @@ public:
     virtual void drawRect(Position position, int width, int height) = 0;
 
     virtual void drawPurpleBox(Position position, int width, int height, int thickness) = 0;
+
+    virtual void setBackground(BG_COLOR color) = 0;
 
     virtual int getWidth() = 0;
 

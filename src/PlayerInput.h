@@ -9,7 +9,7 @@
 enum Action {
     PRESS_UP_ARROW,
     PRESS_DOWN_ARROW,
-    SPACE,
+    RETURN,
     QUIT,
     NONE
 };

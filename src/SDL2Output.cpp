@@ -68,9 +68,15 @@ void SDL2Output::drawRedPoint(Position position) {
     SDL_RenderDrawPoint(renderer, position.getX(), position.getY());
 }
 
-
 void SDL2Output::clear() {
-    SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+    switch (bg_color) {
+        case RED:
+            SDL_SetRenderDrawColor(renderer, 0xFF, 0x00, 0x00, 0xFF);
+            break;
+        case WHITE: default:
+            SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+            break;
+    }
     SDL_RenderClear(renderer);
 }
 

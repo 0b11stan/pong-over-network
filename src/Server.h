@@ -37,6 +37,12 @@ public:
 
     static int run_padPlayerStateReader(void *parent);
 
+    const int sendReadiness();
+
+    const bool remoteIsReady() const { return remoteReadiness; }
+
+    const bool localIsReady() const { return localReadiness; }
+
     const int getPing() const { return ping; }
 
     vector<SDL_Thread *> threads = vector<SDL_Thread *>();
@@ -45,6 +51,8 @@ private:
 
     LocalPlayer &player;
     RemotePlayer &opponent;
+    bool remoteReadiness = false;
+    bool localReadiness = false;
     int ping = 0;
     static bool stopped;
 

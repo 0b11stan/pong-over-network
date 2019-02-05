@@ -26,6 +26,8 @@ public:
 
     void clear() override;
 
+    void setBackground(BG_COLOR color) override { bg_color = color; }
+
     void drawRedPoint(Position position) override;
 
     void drawRect(Position center, int width, int height) override;
@@ -44,6 +46,7 @@ public:
 
 
 private:
+    BG_COLOR bg_color = WHITE;
     SDL_Window *window = nullptr;
     SDL_Renderer *renderer = nullptr;
     TTF_Font *regularFont;
