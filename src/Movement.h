@@ -15,6 +15,8 @@ public:
 
     void horizontalRevert() { x = -x; }
 
+    void verticalRevert() { y = -y; }
+
     int getX() const { return x; }
 
     int getY() const { return y; }

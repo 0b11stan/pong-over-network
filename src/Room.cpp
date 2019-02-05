@@ -21,7 +21,7 @@ void Room::display() const {
 
 void Room::process() {
     if (collidePlayer(player, ball)) ball.movement.horizontalRevert();
-    else if (collide(ball)) ball.movement.horizontalRevert();
+    else if (collideBottomWall(ball)) ball.bounceBottom();
     ball.move();
 }
 
@@ -38,12 +38,19 @@ void Room::handle(Action &action) {
     }
 }
 
-const bool Room::collide(Ball &ball) const {
+//const bool Room::collide(Ball &ball) const {
+//    int ballNextY = (ball.getPosition() + ball.movement).getY();
+//    bool ballIsBeforeRoomMinY = ballNextY - ball.getRadius() < thickness;
+//    bool ballIsAfterRoomMaxY = ballNextY + ball.getRadius() > height - thickness;
+//
+//    return (ballIsBeforeRoomMinY or ballIsAfterRoomMaxY);
+//}
+const bool Room::collideBottomWall(Ball &ball) const {
     int ballNextY = (ball.getPosition() + ball.movement).getY();
-    bool ballIsBeforeRoomMinY = ballNextY - ball.getRadius() < thickness;
+//    bool ballIsBeforeRoomMinY = ballNextY - ball.getRadius() < thickness;
     bool ballIsAfterRoomMaxY = ballNextY + ball.getRadius() > height - thickness;
 
-    return (ballIsBeforeRoomMinY or ballIsAfterRoomMaxY);
+    return ballIsAfterRoomMaxY;
 }
 
 const bool Room::collide(const Player &player, Movement movement) const {
