@@ -14,23 +14,27 @@
 #include "HUD.h"
 #include "LocalPlayer.h"
 #include "RemotePlayer.h"
+#include "PlayerPicker.h"
 
 
 int main(int argc, char *args[]) {
     SDL2Input playerInput;
     SDL2Output playerOutput;
 
-    Ball ball (playerOutput);
-    LocalPlayer player (123, playerOutput);
-    RemotePlayer opponent (456, playerOutput);
-    Server server (player, opponent);
+    PlayerPicker playerPicker(playerInput, playerOutput);
+    playerPicker.run();
 
-    Room room = Room(ball, player, opponent, playerOutput);
-    HUD hud = HUD(server, playerOutput);
-
-    Game game = Game(playerInput, playerOutput, room, hud, server);
-
-    game.run();
+//    Ball ball(playerOutput);
+//    LocalPlayer player(playerPicker.localPlayer, playerOutput);
+//    RemotePlayer opponent(playerPicker.remotePlayer, playerOutput);
+//    Server server(player, opponent);
+//
+//    Room room = Room(ball, player, opponent, playerOutput);
+//    HUD hud = HUD(server, playerOutput);
+//
+//    Game game = Game(playerInput, playerOutput, room, hud, server);
+//
+//    game.run();
 
 //    const string HTTP::baseKEY = "255058";
 //    int playerKey = 456;

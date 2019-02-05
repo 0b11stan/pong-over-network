@@ -13,7 +13,7 @@ class Player {
 
 public:
     Player(int apiKey, Position position, PlayerOutput &playerOutput) : position(position), apiKey(apiKey),
-                                                                         playerOutput(playerOutput) {}
+                                                                        playerOutput(playerOutput) {}
 
     const static int height = 200;
     const static int width = 40;

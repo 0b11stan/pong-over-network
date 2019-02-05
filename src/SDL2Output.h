@@ -46,7 +46,8 @@ public:
 private:
     SDL_Window *window = nullptr;
     SDL_Renderer *renderer = nullptr;
-    TTF_Font *font;
+    TTF_Font *regularFont;
+    TTF_Font *boldFont;
 
     void writeText(string &text, int x = 0, int y = 0, int width = 0, int height = 0);
 };

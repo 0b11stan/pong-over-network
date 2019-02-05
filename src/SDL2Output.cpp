@@ -32,8 +32,13 @@ SDL2Output::SDL2Output() {
                     printf("SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError());
                     success = false;
                 } else {
-                    font = TTF_OpenFont("../font/OpenSans-Regular.ttf", 28);
-                    if (font == nullptr) {
+                    regularFont = TTF_OpenFont("../font/OpenSans-Regular.ttf", 28);
+                    if (regularFont == nullptr) {
+                        printf("Failed to load font! SDL_ttf Error: %s\n", TTF_GetError());
+                        success = false;
+                    }
+                    boldFont = TTF_OpenFont("../font/OpenSans-ExtraBold.ttf", 28);
+                    if (boldFont == nullptr) {
                         printf("Failed to load font! SDL_ttf Error: %s\n", TTF_GetError());
                         success = false;
                     }
@@ -47,8 +52,8 @@ SDL2Output::SDL2Output() {
 
 
 void SDL2Output::close() {
-    TTF_CloseFont(font);
-    font = nullptr;
+    TTF_CloseFont(regularFont);
+    regularFont = nullptr;
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     window = nullptr;
@@ -91,7 +96,7 @@ void SDL2Output::drawPurpleBox(Position position, int width, int height, int thi
 void SDL2Output::writeText(string &text, int x, int y, int width, int height) {
     SDL_Color color = {0, 0, 0};
 
-    SDL_Surface *surface = TTF_RenderText_Solid(font, text.c_str(), color);
+    SDL_Surface *surface = TTF_RenderText_Solid(regularFont, text.c_str(), color);
     SDL_Texture *pingTexture = SDL_CreateTextureFromSurface(renderer, surface);
     SDL_FreeSurface(surface);
 
