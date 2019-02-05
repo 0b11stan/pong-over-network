@@ -22,7 +22,9 @@ public:
 
     const Position &getPosition() const { return position; }
 
-    const Movement &getMovement() const { return movement; }
+    const Movement getUpMovement() const { return Movement(0, -movement.getY()); }
+
+    const Movement getDownMovement() const { return movement; }
 
     const int &getKey() const { return apiKey; }
 

@@ -16,7 +16,7 @@ public:
     explicit Ball(PlayerOutput &playerOutput) :
             position(Position(playerOutput.getWidth() / 2, playerOutput.getHeight() / 2)), playerOutput(playerOutput) {}
 
-    Movement movement = Movement(0, 0);
+    Movement movement = Movement(2, 5);
 
     void display() const;
 

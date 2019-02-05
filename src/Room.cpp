@@ -28,10 +28,10 @@ void Room::process() {
 void Room::handle(Action &action) {
     switch (action) {
         case Action::PRESS_UP_ARROW   :
-            if (!collide(player, player.getMovement())) player.moveUp();
+            if (!collide(player, player.getUpMovement())) player.moveUp();
             break;
         case Action::PRESS_DOWN_ARROW :
-            if (!collide(player, player.getMovement())) player.moveDown();
+            if (!collide(player, player.getDownMovement())) player.moveDown();
             break;
         default:
             break;
@@ -46,7 +46,7 @@ const bool Room::collide(Ball &ball) const {
     return (ballIsBeforeRoomMinY or ballIsAfterRoomMaxY);
 }
 
-const bool Room::collide(const Player &player, const Movement &movement) const {
+const bool Room::collide(const Player &player, Movement movement) const {
     int padNextY = (player.getPosition() + movement).getY();
     bool padIsBeforeRoomMinY = padNextY < thickness;
     bool padIsAfterRoomMaxY = padNextY + Player::height > height - thickness;

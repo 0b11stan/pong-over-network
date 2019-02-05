@@ -26,7 +26,7 @@ public:
 
     const bool collide(Ball &ball) const;
 
-    const bool collide(const Player &player, const Movement &movement) const;
+    const bool collide(const Player &player, Movement movement) const;
 
     const bool collidePlayer(Player &pad, Ball &ball) const;
 
