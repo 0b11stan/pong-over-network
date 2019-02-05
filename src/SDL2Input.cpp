@@ -17,6 +17,9 @@ void SDL2Input::read(Action &action) {
                 case SDLK_DOWN:
                     action = Action::PRESS_DOWN_ARROW;
                     break;
+                case SDLK_SPACE:
+                    action = Action::SPACE;
+                    break;
                 default:
                     action = Action::NONE;
             }
