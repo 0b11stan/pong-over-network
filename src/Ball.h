@@ -16,8 +16,6 @@ public:
     explicit Ball(PlayerOutput &playerOutput) :
             position(Position(playerOutput.getWidth() / 2, playerOutput.getHeight() / 2)), playerOutput(playerOutput) {}
 
-    Movement movement = Movement(2, 5);
-
     void display() const;
 
     void move() { position += movement; }
@@ -26,11 +24,18 @@ public:
 
     void bounceTop() { movement.verticalRevert(); }
 
+    void bounceLeft() { movement.horizontalRevert(); }
+
+    void bounceRight() { movement.horizontalRevert(); }
+
+    Movement getMovement() const { return movement; }
+
     Position getPosition() const { return position; }
 
     int getRadius() const { return radius; }
 
 private:
+    Movement movement = Movement(2, 5);
     const int radius = 50;
     PlayerOutput &playerOutput;
     Position position;

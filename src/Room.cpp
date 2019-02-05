@@ -20,7 +20,8 @@ void Room::display() const {
 }
 
 void Room::process() {
-    if (collidePlayer(player, ball)) ball.movement.horizontalRevert();
+    if (collidePlayer(player, ball)) ball.bounceRight();
+    else if (collideOpponent(opponent, ball)) ball.bounceLeft();
     else if (collideBottomWall(ball)) ball.bounceBottom();
     else if (collideTopWall(ball)) ball.bounceTop();
     ball.move();
@@ -40,14 +41,14 @@ void Room::handle(Action &action) {
 }
 
 const bool Room::collideBottomWall(Ball &ball) const {
-    int ballNextY = (ball.getPosition() + ball.movement).getY();
+    int ballNextY = (ball.getPosition() + ball.getMovement()).getY();
     bool ballIsAfterRoomMaxY = ballNextY + ball.getRadius() > height - thickness;
 
     return ballIsAfterRoomMaxY;
 }
 
 const bool Room::collideTopWall(Ball &ball) const {
-    int ballNextY = (ball.getPosition() + ball.movement).getY();
+    int ballNextY = (ball.getPosition() + ball.getMovement()).getY();
     bool ballIsBeforeRoomMinY = ballNextY - ball.getRadius() < thickness;
 
     return ballIsBeforeRoomMinY;
@@ -62,11 +63,21 @@ const bool Room::collide(const Player &player, Movement movement) const {
 }
 
 const bool Room::collidePlayer(Player &pad, Ball &ball) const {
-    int ballNextY = (ball.getPosition() + ball.movement).getY();
-    int ballNextX = (ball.getPosition() + ball.movement).getX();
+    int ballNextY = (ball.getPosition() + ball.getMovement()).getY();
+    int ballNextX = (ball.getPosition() + ball.getMovement()).getX();
     bool ballIsAfterPadMinY = ballNextY + ball.getRadius() > pad.getPosition().getY();
-    bool ballIsAfterPadMaxX = ballNextX + ball.getRadius() > pad.getPosition().getX();
+    bool ballIsAfterPadMinX = ballNextX + ball.getRadius() > pad.getPosition().getX();
     bool ballIsBeforePadMaxY = ballNextY - ball.getRadius() < pad.getPosition().getY() + Player::height;
 
-    return (ballIsAfterPadMinY and ballIsBeforePadMaxY and ballIsAfterPadMaxX);
+    return (ballIsAfterPadMinY and ballIsBeforePadMaxY and ballIsAfterPadMinX);
+}
+
+const bool Room::collideOpponent(Player &pad, Ball &ball) const {
+    int ballNextY = (ball.getPosition() + ball.getMovement()).getY();
+    int ballNextX = (ball.getPosition() + ball.getMovement()).getX();
+    bool ballIsAfterPadMinY = ballNextY + ball.getRadius() > pad.getPosition().getY();
+    bool ballIsBeforePadMaxY = ballNextY - ball.getRadius() < pad.getPosition().getY() + Player::height;
+    bool ballIsBeforePadMaxX = ballNextX - ball.getRadius() < pad.getPosition().getX() + Player::width;
+
+    return (ballIsAfterPadMinY and ballIsBeforePadMaxY and ballIsBeforePadMaxX);
 }

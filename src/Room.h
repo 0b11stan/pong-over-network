@@ -25,12 +25,14 @@ public:
     void handle(Action &action);
 
     const bool collideBottomWall(Ball &ball) const;
-    
+
     const bool collideTopWall(Ball &ball) const;
 
     const bool collide(const Player &player, Movement movement) const;
 
     const bool collidePlayer(Player &pad, Ball &ball) const;
+
+    const bool collideOpponent(Player &pad, Ball &ball) const;
 
     const Player getPlayer() const { return player; }
 
