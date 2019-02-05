@@ -25,6 +25,8 @@ public:
     void handle(Action &action);
 
     const bool collideBottomWall(Ball &ball) const;
+    
+    const bool collideTopWall(Ball &ball) const;
 
     const bool collide(const Player &player, Movement movement) const;
 

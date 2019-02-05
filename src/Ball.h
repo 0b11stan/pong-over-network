@@ -24,6 +24,8 @@ public:
 
     void bounceBottom() { movement.verticalRevert(); }
 
+    void bounceTop() { movement.verticalRevert(); }
+
     Position getPosition() const { return position; }
 
     int getRadius() const { return radius; }
