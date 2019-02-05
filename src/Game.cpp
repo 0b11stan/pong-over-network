@@ -23,6 +23,7 @@ void Game::run() {
             process();
             display();
         } else if (server.localIsReady() and not server.remoteIsReady()) {
+            room.invertBallMovement();
             playerOutput.setBackground(RED);
         } else {
             playerOutput.setBackground(WHITE);

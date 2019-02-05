@@ -22,6 +22,8 @@ public:
 
     void process();
 
+    void invertBallMovement() { ball.bounceLeft(); }
+
     void handle(Action &action);
 
     const bool collideBottomWall(Ball &ball) const;
