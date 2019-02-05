@@ -18,7 +18,7 @@ set(SOURCE_FILES
         src/HTTP.cpp src/HTTP.h
         src/Server.cpp src/Server.h
         src/HTTPResponse.cpp src/HTTPResponse.h
-        src/HUD.cpp src/HUD.h src/LocalPlayer.h src/RemotePlayer.h src/PlayerPicker.cpp src/PlayerPicker.h)
+        src/HUD.cpp src/HUD.h src/LocalPlayer.h src/RemotePlayer.h)
 
 find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIR})
