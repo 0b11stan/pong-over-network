@@ -10,7 +10,9 @@
 
 using namespace std;
 
-enum BG_COLOR { RED, WHITE };
+enum BG_COLOR {
+    RED, WHITE
+};
 
 class PlayerOutput {
 

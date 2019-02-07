@@ -25,8 +25,8 @@ int main(int argc, char *args[]) {
     int remoteKey = 0;
 
     for (int n = 0; n < argc; n++) {
-        if (args[n] == string("--local")) localKey = stoi(args[n+1]);
-        if (args[n] == string("--remote")) remoteKey = stoi(args[n+1]);
+        if (args[n] == string("--local")) localKey = stoi(args[n + 1]);
+        if (args[n] == string("--remote")) remoteKey = stoi(args[n + 1]);
     }
 
     if (localKey == 0 or remoteKey == 0) {

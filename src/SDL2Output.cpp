@@ -73,7 +73,8 @@ void SDL2Output::clear() {
         case RED:
             SDL_SetRenderDrawColor(renderer, 0xFF, 0x00, 0x00, 0xFF);
             break;
-        case WHITE: default:
+        case WHITE:
+        default:
             SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
             break;
     }

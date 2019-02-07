@@ -19,11 +19,14 @@ public:
 
     void setY(const int y) { this->y = y; }
 
-    Position &operator+=(const Movement &movement) { *this = *this + movement; return *this; }
+    Position &operator+=(const Movement &movement) {
+        *this = *this + movement;
+        return *this;
+    }
 
-    Position operator+(const Movement &movement) const { return { x + movement.getX(), y + movement.getY() }; }
+    Position operator+(const Movement &movement) const { return {x + movement.getX(), y + movement.getY()}; }
 
-    Position operator+(const int margin) const { return { x + margin, y + margin }; }
+    Position operator+(const int margin) const { return {x + margin, y + margin}; }
 
 private:
     int x;

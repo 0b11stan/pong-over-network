@@ -7,7 +7,7 @@
 
 bool Server::stopped = false;
 
-Server::Server(LocalPlayer &player, RemotePlayer &opponent): player(player), opponent(opponent) {
+Server::Server(LocalPlayer &player, RemotePlayer &opponent) : player(player), opponent(opponent) {
     SDL_Thread *pingUpdater = SDL_CreateThread(run_pingUpdater, "PON Ping Updater", (void *) this);
     threads.push_back(pingUpdater);
 }

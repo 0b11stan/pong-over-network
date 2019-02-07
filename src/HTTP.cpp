@@ -38,7 +38,7 @@ void HTTP::delete_(string path, map<string, string> parameters) {
     CURL *curlHandler = curl_easy_init();
 
     curl_easy_setopt(curlHandler, CURLOPT_URL, url.c_str());
-    curl_easy_setopt(curlHandler, CURLOPT_CUSTOMREQUEST,"DELETE");
+    curl_easy_setopt(curlHandler, CURLOPT_CUSTOMREQUEST, "DELETE");
 
     curl_easy_perform(curlHandler);
 
