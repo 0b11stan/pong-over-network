@@ -29,7 +29,7 @@ public:
 
     void close();
 
-    void startStateSharing();
+    void startReading();
 
     static int run_pingUpdater(void *parent);
 

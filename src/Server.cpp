@@ -12,7 +12,7 @@ Server::Server(LocalPlayer &player, RemotePlayer &opponent) : player(player), op
     threads.push_back(pingUpdater);
 }
 
-void Server::startStateSharing() {
+void Server::startReading() {
     SDL_Thread *stateReader = SDL_CreateThread(run_padPlayerStateReader, "PON State Reader", (void *) this);
     threads.push_back(stateReader);
 }
@@ -91,7 +91,6 @@ int Server::sendPadOrdinate() {
 
     return 0;
 }
-
 
 const int Server::sendReadiness() {
     localReadiness = true;

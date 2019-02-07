@@ -14,7 +14,7 @@ void Game::run() {
     Action action = NONE;
 
     server.clearQueue();
-    server.startStateSharing();
+    server.startReading();
 
     do {
         playerOutput.clear();
