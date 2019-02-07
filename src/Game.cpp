@@ -50,6 +50,7 @@ bool Game::handle(Action &action) {
         case PRESS_UP_ARROW :
         case PRESS_DOWN_ARROW :
             room.handle(action);
+            server.sendPadOrdinate();
             return true;
         case RETURN:
             server.sendReadiness();
@@ -59,6 +60,7 @@ bool Game::handle(Action &action) {
         case QUIT:
         default:
             server.close();
+            server.clearQueue();
             return false;
     }
 }

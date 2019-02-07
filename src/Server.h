@@ -33,9 +33,9 @@ public:
 
     static int run_pingUpdater(void *parent);
 
-    static int run_padPlayerStateSender(void *parent);
-
     static int run_padPlayerStateReader(void *parent);
+
+    int sendPadOrdinate();
 
     const int sendReadiness();
 
