@@ -35,17 +35,13 @@ int Server::run_padPlayerStateReader(void *parent) {
         printf("Read data from server : %s\n", response.body.c_str());
         map<string, string> result = response.to_map();
 
-        if (result["data"] == "ready") {
-            server->remoteReadiness = true;
-        } else {
-            int newY;
-            if (!(istringstream(result["data"]) >> newY)) newY = 0;
-            server->opponent.updateY(newY);
+        if (!result["data"].empty()) {
+            if (result["data"] == "ready") server->remoteReadiness = true;
+            else server->opponent.updateY(stoi(result["data"]));
         }
 
         SDL_Delay(10);
     }
-
     return 0;
 }
 
@@ -67,22 +63,25 @@ int Server::run_pingUpdater(void *parent) {
     auto *server = static_cast<Server *>(parent);
 
     while (not stopped) {
-        long long t0 = getTimestamp();
-        long long t1;
-        long long t2;
-        long long t3;
+        long long t0 = 0;
+        long long t1 = 0;
+        long long t2 = 0;
+        long long t3 = 0;
 
         map<string, string> args;
         args["k"] = to_string(server->player.getKey());
         args["t0"] = to_string(t0);
         HTTPResponse response;
-        HTTP::get("/pings", response, args);
 
+        t0 = getTimestamp();
+        HTTP::get("/pings", response, args);
         t3 = getTimestamp();
 
         auto result = response.to_map();
-        if (!(istringstream(result["t1"]) >> t1)) t1 = 0;
-        if (!(istringstream(result["t2"]) >> t2)) t2 = 0;
+        if (!(result["t1"].empty() or result["t2"].empty())) {
+            t1 = stoi(result["t1"]);
+            t2 = stoi(result["t2"]);
+        }
 
         if (t1 == 0 or t2 == 0) exit(EXIT_FAILURE);
 
