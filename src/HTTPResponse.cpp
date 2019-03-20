@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <vector>
 #include "HTTPResponse.h"
 
 const map<string, string> HTTPResponse::to_map() const {
@@ -37,4 +38,20 @@ const map<string, string> HTTPResponse::to_map() const {
     }
 
     return map;
+}
+
+const vector <string> explode(const string &s, const char &c) {
+    string buffer;
+    vector<string> result;
+
+    for (auto n:s) {
+        if (n != c) buffer += n;
+        else if (n == c && !buffer.empty()) {
+            result.push_back(buffer);
+            buffer = "";
+        }
+    }
+    if (!buffer.empty()) result.push_back(buffer);
+
+    return result;
 }

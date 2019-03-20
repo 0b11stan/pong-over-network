@@ -79,15 +79,13 @@ int Server::run_pingUpdater(void *parent) {
 }
 
 int Server::sendPadOrdinate() {
-    string data = to_string(player.getPosition().getY());
-
     map<string, string> args;
     args["k"] = to_string(player.getKey());
     args["to"] = to_string(opponent.getKey());
-    args["data"] = data;
+    args["data"] = "p|" + to_string(player.getPosition().getY());
 
     HTTP::post("/msgs", args);
-    printf("Send data to server : %s\n", data.c_str());
+    printf("Send data to server : %s\n", ("p|" + to_string(player.getPosition().getY())).c_str());
 
     return 0;
 }
